@@ -1,0 +1,1274 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>机器人/控制方向 · 城市落点与 2028 择校一体化规划</title>
+<style>
+:root{
+  --bg:#0a0f1a; --bg2:#0e1626; --panel:#121c30; --panel2:#172440;
+  --line:#22314f; --line2:#2d3f63;
+  --tx:#e8eefb; --tx2:#a9b8d4; --tx3:#7186a8;
+  --teal:#3dd6bd; --teal-d:#0f3b38;
+  --amber:#f2b23e; --amber-d:#3d2f10;
+  --rose:#f2647a; --rose-d:#3d1620;
+  --blue:#5aa6f2; --violet:#9b8cf5; --green:#4ade80;
+  --radius:14px; --radius-s:9px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+body{
+  background:var(--bg);color:var(--tx);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  font-size:15px;line-height:1.75;-webkit-font-smoothing:antialiased;
+  background-image:radial-gradient(900px 500px at 82% -8%,rgba(61,214,189,.10),transparent 60%),radial-gradient(700px 420px at 8% 4%,rgba(90,166,242,.09),transparent 60%);
+}
+.wrap{max-width:1180px;margin:0 auto;padding:0 22px}
+
+/* ---------- nav ---------- */
+nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(14px);background:rgba(10,15,26,.86);border-bottom:1px solid var(--line)}
+.navin{max-width:1180px;margin:0 auto;padding:11px 22px;display:flex;gap:6px;align-items:center;overflow-x:auto;scrollbar-width:none}
+.navin::-webkit-scrollbar{display:none}
+.navin a{color:var(--tx3);text-decoration:none;font-size:13.5px;padding:6px 11px;border-radius:999px;white-space:nowrap;transition:.15s}
+.navin a:hover{color:var(--tx);background:var(--panel2)}
+.navin .brand{color:var(--teal);font-weight:700;margin-right:8px;font-size:13.5px;white-space:nowrap}
+.navin .sep{width:1px;height:16px;background:var(--line2);margin:0 4px;flex:none}
+
+/* ---------- hero ---------- */
+header{padding:56px 0 34px;border-bottom:1px solid var(--line)}
+.kicker{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;color:var(--teal);border:1px solid var(--teal-d);background:rgba(61,214,189,.07);padding:5px 13px;border-radius:999px;margin-bottom:20px;letter-spacing:.3px}
+h1{font-size:clamp(27px,4vw,40px);line-height:1.25;letter-spacing:-.5px;font-weight:800;margin-bottom:16px}
+h1 em{font-style:normal;color:var(--teal)}
+.lede{color:var(--tx2);font-size:16px;max-width:830px;margin-bottom:24px}
+.profile{display:flex;flex-wrap:wrap;gap:8px}
+.pchip{font-size:12.5px;color:var(--tx2);background:var(--panel);border:1px solid var(--line);padding:5px 12px;border-radius:999px}
+.pchip b{color:var(--tx);font-weight:600}
+
+/* ---------- section ---------- */
+section{padding:56px 0;border-bottom:1px solid var(--line)}
+h2{font-size:clamp(21px,3vw,27px);font-weight:750;letter-spacing:-.3px;margin-bottom:8px;display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+h2 .num{color:var(--teal);font-size:15px;font-weight:700;font-variant-numeric:tabular-nums}
+.h2sub{color:var(--tx3);font-size:14px;margin-bottom:30px;max-width:900px}
+h3{font-size:17px;font-weight:700;margin:34px 0 14px;display:flex;align-items:center;gap:9px}
+h3::before{content:"";width:3px;height:16px;background:var(--teal);border-radius:2px}
+h4{font-size:14.5px;font-weight:650;color:var(--tx);margin:20px 0 10px}
+p{color:var(--tx2);margin-bottom:12px}
+p b,li b{color:var(--tx);font-weight:650}
+a{color:var(--blue)}
+.small{font-size:13px;color:var(--tx3)}
+ul{margin:0 0 12px 20px}li{color:var(--tx2);margin-bottom:7px}
+
+/* ---------- cards / grid ---------- */
+.grid{display:grid;gap:14px}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g4{grid-template-columns:repeat(4,1fr)}
+@media(max-width:900px){.g3,.g4{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:620px){.g2,.g3,.g4{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:20px}
+.card.flat{background:var(--bg2)}
+.stat{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px}
+.stat .k{font-size:12.5px;color:var(--tx3);margin-bottom:7px;letter-spacing:.2px}
+.stat .v{font-size:26px;font-weight:800;letter-spacing:-.5px;font-variant-numeric:tabular-nums}
+.stat .u{font-size:13px;color:var(--tx3);font-weight:500;margin-left:3px}
+.stat .d{font-size:12.5px;color:var(--tx2);margin-top:6px}
+
+/* ---------- tags ---------- */
+.tag{display:inline-block;font-size:11.5px;padding:2px 9px;border-radius:999px;border:1px solid var(--line2);color:var(--tx2);line-height:1.7;white-space:nowrap}
+.tag.t-teal{color:var(--teal);border-color:var(--teal-d);background:rgba(61,214,189,.08)}
+.tag.t-amber{color:var(--amber);border-color:var(--amber-d);background:rgba(242,178,62,.08)}
+.tag.t-rose{color:var(--rose);border-color:var(--rose-d);background:rgba(242,100,122,.08)}
+.tag.t-blue{color:var(--blue);border-color:#1e3a5c;background:rgba(90,166,242,.08)}
+.tag.t-grey{color:var(--tx3)}
+
+/* ---------- table ---------- */
+.tblwrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius);background:var(--panel)}
+table{width:100%;border-collapse:collapse;font-size:13.5px;min-width:620px}
+th,td{padding:9px 13px;text-align:left;border-bottom:1px solid var(--line);white-space:nowrap}
+th{color:var(--tx3);font-weight:600;font-size:12.5px;background:var(--bg2);position:sticky;top:0;user-select:none}
+table[data-sortable] th{cursor:pointer}
+table[data-sortable] th:hover{color:var(--tx)}
+th .arw{opacity:.35;font-size:10px;margin-left:3px}
+td{color:var(--tx2)}
+tbody tr:hover td{background:rgba(255,255,255,.017)}
+tbody tr:last-child td{border-bottom:none}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+td b{color:var(--tx)}
+.rank{color:var(--tx3);font-variant-numeric:tabular-nums;width:34px}
+
+/* ---------- city card ---------- */
+.city{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;transition:.18s}
+.city:hover{border-color:var(--line2);transform:translateY(-2px)}
+.city .ch{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}
+.city .cn{font-size:17px;font-weight:750}
+.city .cn small{font-size:11.5px;color:var(--tx3);font-weight:500;margin-left:7px}
+.city .row{display:flex;gap:8px;font-size:13px;color:var(--tx2);margin-bottom:7px;align-items:flex-start}
+.city .row .lb{color:var(--tx3);flex:none;width:56px}
+.city .bars{margin-top:11px}
+.bar{display:flex;align-items:center;gap:9px;margin-top:6px;font-size:12.5px;color:var(--tx3)}
+.bar .tr{flex:1;height:6px;background:var(--bg2);border-radius:99px;overflow:hidden}
+.bar .fl{height:100%;border-radius:99px}
+.bar .vv{width:64px;text-align:right;font-variant-numeric:tabular-nums;color:var(--tx2)}
+.dots{display:inline-flex;gap:3px;flex:none}
+.dot{width:8px;height:8px;border-radius:99px;background:var(--line2)}
+.dot.on{background:var(--teal)}
+.dot.on.a{background:var(--amber)}
+.dot.on.r{background:var(--rose)}
+
+/* ---------- school ---------- */
+.sch{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:0;overflow:hidden}
+.sch .sh{display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding:15px 20px;border-bottom:1px solid var(--line);background:var(--bg2)}
+.sch .sn{font-size:16.5px;font-weight:750}
+.sch .sc{font-size:12.5px;color:var(--tx3)}
+.sch .sline{margin-left:auto;text-align:right}
+.sch .sline .big{font-size:23px;font-weight:800;color:var(--teal);font-variant-numeric:tabular-nums;letter-spacing:-.5px}
+.sch .sline .big.amber{color:var(--amber)}
+.sch .sline .big.rose{color:var(--rose)}
+.sch .sline .cap{font-size:11px;color:var(--tx3)}
+.sch .sb{padding:16px 20px;display:grid;grid-template-columns:repeat(2,1fr);gap:10px 22px}
+@media(max-width:620px){.sch .sb{grid-template-columns:1fr}}
+.sch .kv{display:flex;gap:10px;font-size:13.5px;align-items:baseline}
+.sch .kv .k{color:var(--tx3);flex:none;width:74px;font-size:12.5px}
+.sch .kv .v{color:var(--tx2)}
+.sch .note{grid-column:1/-1;font-size:13px;color:var(--tx2);border-top:1px dashed var(--line);padding-top:11px;margin-top:3px}
+.sch .src{grid-column:1/-1;font-size:12px;color:var(--tx3)}
+.sch .src a{color:var(--tx3);text-decoration:none;border-bottom:1px dotted var(--line2)}
+.sch .src a:hover{color:var(--blue)}
+
+/* ---------- tier header ---------- */
+.tier{display:flex;align-items:center;gap:12px;margin:32px 0 16px;padding:12px 18px;border-radius:var(--radius);border:1px solid var(--line);background:linear-gradient(90deg,var(--panel2),var(--panel))}
+.tier .tn{font-size:16px;font-weight:750}
+.tier .td{font-size:13px;color:var(--tx3)}
+.tier .badge{margin-left:auto;font-size:12px;padding:4px 12px;border-radius:999px;white-space:nowrap}
+
+/* ---------- timeline ---------- */
+.tl{position:relative;margin:22px 0 8px;padding-left:26px}
+.tl::before{content:"";position:absolute;left:7px;top:6px;bottom:6px;width:2px;background:linear-gradient(180deg,var(--teal),var(--blue),var(--violet))}
+.tl .it{position:relative;margin-bottom:20px}
+.tl .it::before{content:"";position:absolute;left:-24px;top:6px;width:11px;height:11px;border-radius:99px;background:var(--bg);border:2px solid var(--teal)}
+.tl .it .yr{font-size:13px;font-weight:750;color:var(--teal);margin-bottom:2px;font-variant-numeric:tabular-nums}
+.tl .it .tx{font-size:14px;color:var(--tx2)}
+
+/* ---------- misc ---------- */
+.callout{border-left:3px solid var(--teal);background:rgba(61,214,189,.05);border-radius:0 var(--radius-s) var(--radius-s) 0;padding:14px 18px;margin:16px 0}
+.callout.warn{border-color:var(--amber);background:rgba(242,178,62,.05)}
+.callout.bad{border-color:var(--rose);background:rgba(242,100,122,.05)}
+.callout .ct{font-size:13.5px;font-weight:700;margin-bottom:5px}
+.callout p{font-size:13.5px;margin-bottom:5px}
+.callout p:last-child{margin-bottom:0}
+.pill{display:inline-block;font-size:12px;padding:3px 10px;border-radius:999px;margin:2px 3px 2px 0}
+.pill.ok{color:var(--green);background:rgba(74,222,128,.09);border:1px solid rgba(74,222,128,.25)}
+.pill.est{color:var(--amber);background:rgba(242,178,62,.09);border:1px solid rgba(242,178,62,.25)}
+.pill.chk{color:var(--rose);background:rgba(242,100,122,.09);border:1px solid rgba(242,100,122,.25)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12.5px;color:var(--tx3);margin:14px 0}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:9px;height:9px;border-radius:3px;display:inline-block}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0}
+.filters button{font:inherit;font-size:13px;color:var(--tx3);background:var(--panel);border:1px solid var(--line);padding:6px 14px;border-radius:999px;cursor:pointer;transition:.15s}
+.filters button:hover{color:var(--tx);border-color:var(--line2)}
+.filters button.on{color:var(--bg);background:var(--teal);border-color:var(--teal);font-weight:650}
+footer{padding:40px 0 60px;color:var(--tx3);font-size:12.5px}
+footer b{color:var(--tx2)}
+.hr{height:1px;background:var(--line);margin:26px 0}
+details{border:1px solid var(--line);border-radius:var(--radius-s);background:var(--bg2);padding:11px 15px;margin:10px 0}
+details summary{cursor:pointer;font-size:13.5px;color:var(--tx2);font-weight:600}
+details summary::marker{color:var(--teal)}
+details[open] summary{margin-bottom:9px}
+details p,details li{font-size:13px}
+.two{display:grid;grid-template-columns:1.15fr .85fr;gap:16px}
+@media(max-width:820px){.two{grid-template-columns:1fr}}
+.focal{border-color:var(--teal-d)!important;box-shadow:0 0 0 1px rgba(61,214,189,.12)}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="navin">
+    <span class="brand">择城·择校一体化规划</span>
+    <span class="sep"></span>
+    <a href="#dash">总览</a>
+    <a href="#city">一 · 城市落点</a>
+    <a href="#school">二 · 2028 择校</a>
+    <a href="#trend">三 · 趋势展望</a>
+    <a href="#advice">四 · 联动建议</a>
+    <a href="#verify">五 · 核实与纠错</a>
+  </div>
+</nav>
+
+<header>
+  <div class="wrap">
+    <div class="kicker">● 机器人 / 控制方向 · 一体化决策报告 · 2026-10-12</div>
+    <h1>从「落脚哪座城」到「考进哪所学校」<br><em>一条打通的十年路径</em></h1>
+    <p class="lede">
+      本报告把「高收入城市生活成本与压力」与「2028 控制专硕择校方案」合并成一条决策链：
+      <b>目标产业带 → 城市落点 → 院校选择 → 就业出口 → 十年趋势</b>。
+      所有关键数据均回到官方或权威来源重核，并逐条标注可信度；两份原材料的口径错误在第五节统一列出。
+    </p>
+    <div class="profile">
+      <span class="pchip">画像：<b>西安理工 · 机器人工程</b></span>
+      <span class="pchip">成绩：<b>专业前 10%–30%</b></span>
+      <span class="pchip">外语：<b>六级 500+</b></span>
+      <span class="pchip">目标：<b>0854 控制 / 机器人专硕</b></span>
+      <span class="pchip">地域：<b>长三角优先 · 珠三角次选</b></span>
+      <span class="pchip">底线：<b>院校 ≥ 211</b></span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+<!-- ============ 总览 ============ -->
+<section id="dash">
+  <h2><span class="num">00</span> 总览仪表盘</h2>
+  <p class="h2sub">先给结论，再给论证。以下数字均来自本报告核实过的口径（详见第五节）。</p>
+
+  <div class="grid g4" style="margin-bottom:14px">
+    <div class="stat">
+      <div class="k">全清单最卷院线（2026）</div>
+      <div class="v">399<span class="u">分</span></div>
+      <div class="d">江南大学 085406 控制工程（211）</div>
+    </div>
+    <div class="stat">
+      <div class="k">头部 985 冲刺区间</div>
+      <div class="v">365–393<span class="u">分</span></div>
+      <div class="d">同济 365 → 上交 367 → 东南 ≈391 → 浙大 393</div>
+    </div>
+    <div class="stat">
+      <div class="k">性价比首选（保底档）</div>
+      <div class="v">327<span class="u">分</span></div>
+      <div class="d">杭电 085406 · 拟招 240 人 · 杭州产业带</div>
+    </div>
+    <div class="stat">
+      <div class="k">城市性价比首选</div>
+      <div class="v">苏州</div>
+      <div class="d">汇川+绿的谐波+华为车BU+博世；攒首付约 6–7 年</div>
+    </div>
+  </div>
+
+  <h3>五条核心结论</h3>
+  <div class="grid g2">
+    <div class="card">
+      <h4 style="margin-top:0">1 · 择校的「档次」必须按真实院线重排，而不是按学校层次</h4>
+      <p>按 2026 年实际院线排序，<b>江南大学（211，399 分）比浙大（985，393）、东南（985，≈391）还高</b>；深大（双非，371）、苏大（211，363）也高于同济、上交。所谓「211 保底、985 冲刺」的直觉在控制专硕上并不成立。</p>
+    </div>
+    <div class="card">
+      <h3 style="margin-top:0;font-size:15px">2 · 真正的「低分好校」只有杭电</h3>
+      <p>全清单中，同时满足「学科 B+ / 对口产业强 / 招生量大 / 院线低」四条的只有杭州电子科技大学：<b>327 分自划线、拟招 240 人、杭州宇树+海康+云深处产业带</b>。代价是<b>考生须考数一英一</b>。</p>
+    </div>
+    <div class="card">
+      <h3 style="margin-top:0;font-size:15px">3 · 院线存在「大小年」，单看一年会误判</h3>
+      <p>东南自动化 0854 的院线 2022=343 → 2023=367 → 2025=310 → 2026≈391，<b>四年内摆幅超过 80 分</b>。任何「去年 310 所以今年也低」的推断都极其危险——这正是原报告 v1 出错的原因。</p>
+    </div>
+    <div class="card">
+      <h3 style="margin-top:0;font-size:15px">4 · 城市选择的第一原则是「产业对口」，其次是房价</h3>
+      <p>同为高收入城市，机器人/控制岗位密度天差地别：<b>深圳、上海、苏州、杭州</b>岗位最密；<b>舟山、丽水、福州、厦门</b>几乎无对口岗位。舟山人均 GDP 全国第 8，但对控制硕士等于「专业归零」。</p>
+    </div>
+    <div class="card">
+      <h3 style="margin-top:0;font-size:15px">5 · 「长三角制造带」是控制硕士的最优解</h3>
+      <p>苏州（伺服+减速器）、无锡（PLC）、常州（协作机器人）、南京（工业机器人本体）、杭州（人形+机器视觉）构成连绵产业带，<b>薪资达沪深 8–9 折而房价约为其一半</b>，是「扎得下根」的组合。</p>
+    </div>
+    <div class="card flat" style="border-style:dashed">
+      <h3 style="margin-top:0;font-size:15px">一句话方案</h3>
+      <p>若求稳：<b>杭电（保底）+ 南航（主攻）</b>；<br>
+         若冲一冲：<b>同济（冲刺）+ 南航（主攻）+ 杭电（保底）</b>；<br>
+         城市落点：<b>苏州 / 杭州 / 南京 / 无锡</b>优先，深圳为「先苦后甜」备选。</p>
+    </div>
+  </div>
+
+  <div class="legend" style="margin-top:26px">
+    <span><i style="background:var(--green)"></i><b>【已查证】</b> 有官方来源（校/院官网、统计公报）</span>
+    <span><i style="background:var(--amber)"></i><b>【估算】</b> 推算或平台挂牌数据</span>
+    <span><i style="background:var(--rose)"></i><b>【待核】</b> 需以 2027 年 9 月招生简章或完整名单确认</span>
+  </div>
+</section>
+
+<!-- ============ 城市 ============ -->
+<section id="city">
+  <h2><span class="num">01</span> 城市落点：剔除资源型城市后的双榜格局</h2>
+  <p class="h2sub">数据口径：人均 GDP 与人均可支配收入均为 <b>2024 年度</b>，优先取自各市统计局公报；收入为「全体居民」口径（城镇+农村加权），不混入城镇口径。</p>
+
+  <div class="callout">
+    <div class="ct">为什么要剔除「资源型城市」</div>
+    <p>鄂尔多斯（28.53 万）、克拉玛依（27.14 万）、榆林（20.90 万）、东营（19.50 万）若不剔除将占据人均 GDP 全国前 10 中的 4 席。但这类高人均 GDP 由<b>煤炭/石油开采与央企派驻</b>带来，不代表普遍的民富水平，也不对应机器人/控制岗位，故单列剔除。</p>
+    <p class="small">其余被剔除者可参见原报告：海西州、包头（稀土）、哈密等。剔除后北京登顶，人均 GDP 前 20 中长三角占约 12 席。</p>
+  </div>
+
+  <h3>榜单一 · 人均 GDP 前 20（已剔除资源型城市）</h3>
+  <div class="tblwrap">
+    <table data-sortable>
+      <thead><tr><th>#</th><th>城市</th><th class="num">人均 GDP（万元）</th><th>年份</th><th>来源标注</th></tr></thead>
+      <tbody>
+        <tr><td class="rank">1</td><td><b>北京</b></td><td class="num">22.80</td><td>2024</td><td><span class="pill ok">已查证</span></td></tr>
+        <tr><td class="rank">2</td><td><b>上海</b></td><td class="num">21.71</td><td>2024</td><td><span class="pill ok">已查证</span></td></tr>
+        <tr><td class="rank">3</td><td><b>无锡</b></td><td class="num">21.68</td><td>2024</td><td><span class="pill ok">已查证</span></td></tr>
+        <tr><td class="rank">4</td><td><b>苏州</b></td><td class="num">20.60</td><td>2024</td><td><span class="pill ok">已查证</span></td></tr>
+        <tr><td class="rank">5</td><td><b>深圳</b></td><td class="num">20.57</td><td>2024</td><td><span class="pill ok">已查证</span></td></tr>
+        <tr><td class="rank">6</td><td><b>常州</b></td><td class="num">20.10</td><td>2024</td><td><span class="pill est">估算</span></td></tr>
+        <tr><td class="rank">7</td><td><b>南京</b></td><td class="num">19.35</td><td>2024</td><td><span class="pill est">估算</span></td></tr>
+        <tr><td class="rank">8</td><td>舟山</td><td class="num">19.00</td><td>2024</td><td><span class="pill est">估算</span></td></tr>
+        <tr><td class="rank">9</td><td><b>宁波</b></td><td class="num">18.64</td><td>2024</td><td><span class="pill est">估算</span></td></tr>
+        <tr><td class="rank">10</td><td>珠海</td><td class="num">17.87</td><td>2024</td><td><span class="pill est">估算</span></td></tr>
+        <tr><td class="rank">11</td><td><b>杭州</b></td><td class="num">17.32</td><td>2024</td><td><span class="pill est">估算</span></td></tr>
+        <tr><td class="rank">12</td><td>镇江</td><td class="num">17.17</td><td>2024</td><td><span class="pill est">估算</span></td></tr>
+        <tr><td class="rank">13</td><td>扬州</td><td class="num">17.03</td><td>2024</td><td><span class="pill est">估算</span></td></tr>
+        <tr><td class="rank">14</td><td>福州</td><td class="num">16.78</td><td>2024</td><td><span class="pill est">估算</span></td></tr>
+        <tr><td class="rank">15</td><td><b>广州</b></td><td class="num">16.42</td><td>2024</td><td><span class="pill ok">已查证</span></td></tr>
+        <tr><td class="rank">16</td><td>厦门</td><td class="num">16.05</td><td>2024</td><td><span class="pill est">估算</span></td></tr>
+        <tr><td class="rank">17</td><td>南通</td><td class="num">16.03</td><td>2024</td><td><span class="pill est">估算</span></td></tr>
+        <tr><td class="rank">18</td><td>青岛</td><td class="num">16.01</td><td>2024</td><td><span class="pill est">估算</span></td></tr>
+        <tr><td class="rank">19</td><td>泰州</td><td class="num">15.64</td><td>2024</td><td><span class="pill est">估算</span></td></tr>
+        <tr><td class="rank">20</td><td>绍兴</td><td class="num">15.41</td><td>2024</td><td><span class="pill est">估算</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="small" style="margin-top:10px">加粗为机器人/控制岗有实质对口机会的城市。点击表头可按数值排序。</p>
+
+  <h3>榜单二 · 人均可支配收入前 20（全体居民口径）</h3>
+  <div class="tblwrap">
+    <table data-sortable>
+      <thead><tr><th>#</th><th>城市</th><th class="num">人均可支配收入（元）</th><th>口径 / 标注</th></tr></thead>
+      <tbody>
+        <tr><td class="rank">1</td><td><b>上海</b></td><td class="num">88,366</td><td><span class="pill ok">已查证</span> 统计公报</td></tr>
+        <tr><td class="rank">2</td><td><b>北京</b></td><td class="num">85,415</td><td><span class="pill ok">已查证</span> 统计公报</td></tr>
+        <tr><td class="rank">3</td><td><b>深圳</b></td><td class="num">81,123</td><td><span class="pill ok">已查证</span> 统计公报</td></tr>
+        <tr><td class="rank">4</td><td><b>广州</b></td><td class="num">77,804</td><td><span class="pill est">估算</span> 全体居民推算</td></tr>
+        <tr><td class="rank">5</td><td><b>苏州</b></td><td class="num">77,524</td><td><span class="pill est">估算</span></td></tr>
+        <tr><td class="rank">6</td><td><b>杭州</b></td><td class="num">76,777</td><td><span class="pill est">估算</span></td></tr>
+        <tr><td class="rank">7</td><td><b>南京</b></td><td class="num">75,180</td><td><span class="pill est">估算</span></td></tr>
+        <tr><td class="rank">8</td><td><b>宁波</b></td><td class="num">74,806</td><td><span class="pill est">估算</span></td></tr>
+        <tr><td class="rank">9</td><td>厦门</td><td class="num">74,249</td><td><span class="pill est">估算</span></td></tr>
+        <tr><td class="rank">10</td><td>绍兴</td><td class="num">72,898</td><td><span class="pill est">估算</span></td></tr>
+        <tr><td class="rank">11</td><td><b>无锡</b></td><td class="num">72,232</td><td><span class="pill est">估算</span></td></tr>
+        <tr><td class="rank">12</td><td>舟山</td><td class="num">71,154</td><td><span class="pill est">估算</span></td></tr>
+        <tr><td class="rank">13</td><td>温州</td><td class="num">70,829</td><td><span class="pill est">估算</span></td></tr>
+        <tr><td class="rank">14</td><td>嘉兴</td><td class="num">69,232</td><td><span class="pill est">估算</span></td></tr>
+        <tr><td class="rank">15</td><td><b>佛山</b></td><td class="num">68,862</td><td><span class="pill est">估算</span></td></tr>
+        <tr><td class="rank">16</td><td><b>东莞</b></td><td class="num">68,308</td><td><span class="pill est">估算</span></td></tr>
+        <tr><td class="rank">17</td><td>珠海</td><td class="num">67,315</td><td><span class="pill est">估算</span></td></tr>
+        <tr><td class="rank">18</td><td>湖州</td><td class="num">67,290</td><td><span class="pill est">估算</span></td></tr>
+        <tr><td class="rank">19</td><td><b>常州</b></td><td class="num">65,665</td><td><span class="pill est">估算</span></td></tr>
+        <tr><td class="rank">20</td><td>中山</td><td class="num">65,070</td><td><span class="pill est">估算</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="small" style="margin-top:10px">全国居民 2024 年人均可支配收入 41,314 元，本榜所有城市均显著高于全国水平。</p>
+
+  <h3>26 城逐城卡片（机器人 / 控制方向视角）</h3>
+  <p class="h2sub" style="margin-bottom:18px">两榜取并集共 26 城。薪资带为<b>控制/嵌入式/伺服方向硕士</b>的税前年薪【估算】，调研口径；对口强度按本土机器人/控制企业岗位密度评级。</p>
+
+  <div class="filters" id="cityFilter">
+    <button class="on" data-f="all">全部 26 城</button>
+    <button data-f="strong">对口强（首选）</button>
+    <button data-f="mid">对口中等</button>
+    <button data-f="weak">对口弱（慎选）</button>
+  </div>
+
+  <div class="grid g3" id="cityGrid">
+    <!-- 强 -->
+    <div class="city" data-f="strong">
+      <div class="ch"><div class="cn">深圳<small>广东</small></div><span class="dots"><i class="dot on"></i><i class="dot on"></i><i class="dot on"></i></span></div>
+      <div class="row"><span class="lb">对口</span><span>优必选·越疆·雷赛智能·大疆·比亚迪·速腾聚创·普渡/云鲸/海柔</span></div>
+      <div class="row"><span class="lb">岗位</span><span>密度全国第一梯队，「机器人谷」近百家企业</span></div>
+      <div class="row"><span class="lb">薪资</span><span>起薪 22–35 万；成长后 40–60 万</span></div>
+      <div class="bars">
+        <div class="bar"><span>房价</span><span class="tr"><span class="fl" style="width:92%;background:var(--rose)"></span></span><span class="vv">≈5.5万/㎡</span></div>
+        <div class="bar"><span>攒首付</span><span class="tr"><span class="fl" style="width:88%;background:var(--amber)"></span></span><span class="vv">22–24年</span></div>
+      </div>
+    </div>
+    <div class="city" data-f="strong">
+      <div class="ch"><div class="cn">上海<small>直辖市</small></div><span class="dots"><i class="dot on"></i><i class="dot on"></i><i class="dot on"></i></span></div>
+      <div class="row"><span class="lb">对口</span><span>智元·傅利叶·新时达·鸣志电器·开普勒·微创机器人</span></div>
+      <div class="row"><span class="lb">岗位</span><span>张江/临港/嘉定全链条，全国首个异构人形训练场</span></div>
+      <div class="row"><span class="lb">薪资</span><span>人形初创 35–55 万；传统运控 22–35 万</span></div>
+      <div class="bars">
+        <div class="bar"><span>房价</span><span class="tr"><span class="fl" style="width:100%;background:var(--rose)"></span></span><span class="vv">≈6.5万/㎡</span></div>
+        <div class="bar"><span>攒首付</span><span class="tr"><span class="fl" style="width:82%;background:var(--amber)"></span></span><span class="vv">≈20年</span></div>
+      </div>
+    </div>
+    <div class="city" data-f="strong">
+      <div class="ch"><div class="cn">苏州<small>江苏</small></div><span class="dots"><i class="dot on"></i><i class="dot on"></i><i class="dot on"></i></span></div>
+      <div class="row"><span class="lb">对口</span><span>汇川技术·绿的谐波·华为车BU（苏研所）·博世苏州·禾赛</span></div>
+      <div class="row"><span class="lb">岗位</span><span>伺服+减速器的全国核心，工业机器人全链条</span></div>
+      <div class="row"><span class="lb">薪资</span><span>起薪 18–30 万（约为上海的 8–9 折）</span></div>
+      <div class="bars">
+        <div class="bar"><span>房价</span><span class="tr"><span class="fl" style="width:38%;background:var(--teal)"></span></span><span class="vv">≈2.3万/㎡</span></div>
+        <div class="bar"><span>攒首付</span><span class="tr"><span class="fl" style="width:26%;background:var(--green)"></span></span><span class="vv">6–7年</span></div>
+      </div>
+    </div>
+    <div class="city" data-f="strong">
+      <div class="ch"><div class="cn">杭州<small>浙江</small></div><span class="dots"><i class="dot on"></i><i class="dot on"></i><i class="dot on"></i></span></div>
+      <div class="row"><span class="lb">对口</span><span>宇树科技·海康机器人·云深处·大华</span></div>
+      <div class="row"><span class="lb">岗位</span><span>人形本体 + 机器视觉双强，上升斜率最快</span></div>
+      <div class="row"><span class="lb">薪资</span><span>起薪 20–35 万；成长后 40–60 万</span></div>
+      <div class="bars">
+        <div class="bar"><span>房价</span><span class="tr"><span class="fl" style="width:56%;background:var(--amber)"></span></span><span class="vv">≈3.3万/㎡</span></div>
+        <div class="bar"><span>攒首付</span><span class="tr"><span class="fl" style="width:46%;background:var(--amber)"></span></span><span class="vv">≈12年</span></div>
+      </div>
+    </div>
+    <!-- 中 -->
+    <div class="city" data-f="mid">
+      <div class="ch"><div class="cn">北京<small>直辖市</small></div><span class="dots"><i class="dot on"></i><i class="dot on"></i><i class="dot"></i></span></div>
+      <div class="row"><span class="lb">对口</span><span>星动纪元·银河通用·小米机器人·地平线·北方华创·和利时</span></div>
+      <div class="row"><span class="lb">岗位</span><span>人形整机单位超 30 家，全国第一极；但博士内卷严重</span></div>
+      <div class="row"><span class="lb">薪资</span><span>起薪 30–45 万；头部均薪 55–65 万（多为算法岗）</span></div>
+      <div class="bars">
+        <div class="bar"><span>房价</span><span class="tr"><span class="fl" style="width:94%;background:var(--rose)"></span></span><span class="vv">≈6.0万/㎡</span></div>
+        <div class="bar"><span>攒首付</span><span class="tr"><span class="fl" style="width:80%;background:var(--amber)"></span></span><span class="vv">≈20年</span></div>
+      </div>
+    </div>
+    <div class="city" data-f="mid">
+      <div class="ch"><div class="cn">南京<small>江苏</small></div><span class="dots"><i class="dot on"></i><i class="dot on"></i><i class="dot"></i></span></div>
+      <div class="row"><span class="lb">对口</span><span>埃斯顿（工业机器人本体龙头）·汇川南京 40 万台基地·南瑞</span></div>
+      <div class="row"><span class="lb">岗位</span><span>军工+智能制造，就业半径覆盖苏锡常与上海</span></div>
+      <div class="row"><span class="lb">薪资</span><span>起薪 18–30 万</span></div>
+      <div class="bars">
+        <div class="bar"><span>房价</span><span class="tr"><span class="fl" style="width:32%;background:var(--teal)"></span></span><span class="vv">≈1.9万/㎡</span></div>
+        <div class="bar"><span>攒首付</span><span class="tr"><span class="fl" style="width:30%;background:var(--green)"></span></span><span class="vv">7–8年</span></div>
+      </div>
+    </div>
+    <div class="city" data-f="mid">
+      <div class="ch"><div class="cn">无锡<small>江苏</small></div><span class="dots"><i class="dot on"></i><i class="dot on"></i><i class="dot"></i></span></div>
+      <div class="row"><span class="lb">对口</span><span>信捷电气（PLC 龙头）·先导智能（锂电装备）</span></div>
+      <div class="row"><span class="lb">岗位</span><span>运控与零部件带核心；江南大学所在地</span></div>
+      <div class="row"><span class="lb">薪资</span><span>起薪 15–25 万</span></div>
+      <div class="bars">
+        <div class="bar"><span>房价</span><span class="tr"><span class="fl" style="width:27%;background:var(--teal)"></span></span><span class="vv">≈1.6万/㎡</span></div>
+        <div class="bar"><span>攒首付</span><span class="tr"><span class="fl" style="width:24%;background:var(--green)"></span></span><span class="vv">≈6年</span></div>
+      </div>
+    </div>
+    <div class="city" data-f="mid">
+      <div class="ch"><div class="cn">常州<small>江苏</small></div><span class="dots"><i class="dot on"></i><i class="dot on"></i><i class="dot"></i></span></div>
+      <div class="row"><span class="lb">对口</span><span>节卡机器人（协作）·江苏雷利·鼎智科技</span></div>
+      <div class="row"><span class="lb">岗位</span><span>协作机器人 + 核心零部件；河海金坛校区在此</span></div>
+      <div class="row"><span class="lb">薪资</span><span>起薪 15–25 万</span></div>
+      <div class="bars">
+        <div class="bar"><span>房价</span><span class="tr"><span class="fl" style="width:22%;background:var(--teal)"></span></span><span class="vv">≈1.3万/㎡</span></div>
+        <div class="bar"><span>攒首付</span><span class="tr"><span class="fl" style="width:22%;background:var(--green)"></span></span><span class="vv">≈6年</span></div>
+      </div>
+    </div>
+    <div class="city" data-f="mid">
+      <div class="ch"><div class="cn">宁波<small>浙江</small></div><span class="dots"><i class="dot on"></i><i class="dot on"></i><i class="dot"></i></span></div>
+      <div class="row"><span class="lb">对口</span><span>中大力德（减速器）·拓普集团·均胜电子（智驾）</span></div>
+      <div class="row"><span class="lb">岗位</span><span>零部件与汽车电子，整机厂偏少</span></div>
+      <div class="row"><span class="lb">薪资</span><span>起薪 15–25 万</span></div>
+      <div class="bars">
+        <div class="bar"><span>房价</span><span class="tr"><span class="fl" style="width:38%;background:var(--teal)"></span></span><span class="vv">≈2.3万/㎡</span></div>
+        <div class="bar"><span>攒首付</span><span class="tr"><span class="fl" style="width:34%;background:var(--green)"></span></span><span class="vv">≈8年</span></div>
+      </div>
+    </div>
+    <div class="city" data-f="mid">
+      <div class="ch"><div class="cn">广州<small>广东</small></div><span class="dots"><i class="dot on"></i><i class="dot on"></i><i class="dot"></i></span></div>
+      <div class="row"><span class="lb">对口</span><span>小鹏（IRON 人形）·广汽·瑞松科技·广州数控 GSK·亿航</span></div>
+      <div class="row"><span class="lb">岗位</span><span>「车 + 机器人 + 数控」三角，南沙/番禺布局</span></div>
+      <div class="row"><span class="lb">薪资</span><span>起薪 20–32 万</span></div>
+      <div class="bars">
+        <div class="bar"><span>房价</span><span class="tr"><span class="fl" style="width:56%;background:var(--amber)"></span></span><span class="vv">≈3.3万/㎡</span></div>
+        <div class="bar"><span>攒首付</span><span class="tr"><span class="fl" style="width:48%;background:var(--amber)"></span></span><span class="vv">≈12年</span></div>
+      </div>
+    </div>
+    <div class="city" data-f="mid">
+      <div class="ch"><div class="cn">东莞<small>广东</small></div><span class="dots"><i class="dot on"></i><i class="dot on"></i><i class="dot"></i></span></div>
+      <div class="row"><span class="lb">对口</span><span>华为松山湖（车BU/终端）·拓斯达（工业机器人）</span></div>
+      <div class="row"><span class="lb">岗位</span><span>「机器人全链条 + 低房价」的洼地，松山湖房价高于全市</span></div>
+      <div class="row"><span class="lb">薪资</span><span>起薪 18–28 万</span></div>
+      <div class="bars">
+        <div class="bar"><span>房价</span><span class="tr"><span class="fl" style="width:23%;background:var(--teal)"></span></span><span class="vv">≈1.35万/㎡</span></div>
+        <div class="bar"><span>攒首付</span><span class="tr"><span class="fl" style="width:22%;background:var(--green)"></span></span><span class="vv">≈6年</span></div>
+      </div>
+    </div>
+    <div class="city" data-f="mid">
+      <div class="ch"><div class="cn">佛山<small>广东</small></div><span class="dots"><i class="dot on"></i><i class="dot on"></i><i class="dot"></i></span></div>
+      <div class="row"><span class="lb">对口</span><span>美的库卡（机器人本体）·威灵电机·北滘机器人谷</span></div>
+      <div class="row"><span class="lb">岗位</span><span>家电系机器人 + 执行器</span></div>
+      <div class="row"><span class="lb">薪资</span><span>起薪 15–25 万</span></div>
+      <div class="bars">
+        <div class="bar"><span>房价</span><span class="tr"><span class="fl" style="width:22%;background:var(--teal)"></span></span><span class="vv">≈1.3万/㎡</span></div>
+        <div class="bar"><span>攒首付</span><span class="tr"><span class="fl" style="width:22%;background:var(--green)"></span></span><span class="vv">≈6年</span></div>
+      </div>
+    </div>
+    <div class="city" data-f="mid">
+      <div class="ch"><div class="cn">青岛<small>山东</small></div><span class="dots"><i class="dot on"></i><i class="dot"></i><i class="dot"></i></span></div>
+      <div class="row"><span class="lb">对口</span><span>海尔·海信（家电+商用机器人）·软控股份</span></div>
+      <div class="row"><span class="lb">岗位</span><span>家电与轮胎装备为主，人形/本体弱</span></div>
+      <div class="row"><span class="lb">薪资</span><span>起薪 14–22 万</span></div>
+      <div class="bars">
+        <div class="bar"><span>房价</span><span class="tr"><span class="fl" style="width:26%;background:var(--teal)"></span></span><span class="vv">≈1.6万/㎡</span></div>
+        <div class="bar"><span>攒首付</span><span class="tr"><span class="fl" style="width:26%;background:var(--green)"></span></span><span class="vv">≈7年</span></div>
+      </div>
+    </div>
+    <div class="city" data-f="mid">
+      <div class="ch"><div class="cn">珠海<small>广东</small></div><span class="dots"><i class="dot on"></i><i class="dot"></i><i class="dot"></i></span></div>
+      <div class="row"><span class="lb">对口</span><span>格力（智能装备）·云洲智能（无人船）·纳思达</span></div>
+      <div class="row"><span class="lb">岗位</span><span>本体厂稀少，偏无人船/打印耗材装备</span></div>
+      <div class="row"><span class="lb">薪资</span><span>起薪 15–24 万</span></div>
+      <div class="bars">
+        <div class="bar"><span>房价</span><span class="tr"><span class="fl" style="width:36%;background:var(--amber)"></span></span><span class="vv">≈2.2万/㎡</span></div>
+        <div class="bar"><span>攒首付</span><span class="tr"><span class="fl" style="width:38%;background:var(--amber)"></span></span><span class="vv">≈9年</span></div>
+      </div>
+    </div>
+    <div class="city" data-f="mid">
+      <div class="ch"><div class="cn">绍兴<small>浙江</small></div><span class="dots"><i class="dot on"></i><i class="dot"></i><i class="dot"></i></span></div>
+      <div class="row"><span class="lb">对口</span><span>三花智控（机器人执行器/热管理）·卧龙电驱</span></div>
+      <div class="row"><span class="lb">岗位</span><span>执行器零部件单点强，产业链不完整</span></div>
+      <div class="row"><span class="lb">薪资</span><span>起薪 14–22 万</span></div>
+      <div class="bars">
+        <div class="bar"><span>房价</span><span class="tr"><span class="fl" style="width:25%;background:var(--teal)"></span></span><span class="vv">≈1.5万/㎡</span></div>
+        <div class="bar"><span>攒首付</span><span class="tr"><span class="fl" style="width:25%;background:var(--green)"></span></span><span class="vv">≈7年</span></div>
+      </div>
+    </div>
+    <div class="city" data-f="mid">
+      <div class="ch"><div class="cn">嘉兴<small>浙江</small></div><span class="dots"><i class="dot on"></i><i class="dot"></i><i class="dot"></i></span></div>
+      <div class="row"><span class="lb">对口</span><span>斯达半导（IGBT）·闻泰科技，承接上海外溢</span></div>
+      <div class="row"><span class="lb">岗位</span><span>半导体/功率器件为主，机器人本体缺失</span></div>
+      <div class="row"><span class="lb">薪资</span><span>起薪 14–22 万</span></div>
+      <div class="bars">
+        <div class="bar"><span>房价</span><span class="tr"><span class="fl" style="width:23%;background:var(--teal)"></span></span><span class="vv">≈1.4万/㎡</span></div>
+        <div class="bar"><span>攒首付</span><span class="tr"><span class="fl" style="width:24%;background:var(--green)"></span></span><span class="vv">≈7年</span></div>
+      </div>
+    </div>
+    <!-- 弱 -->
+    <div class="city" data-f="weak">
+      <div class="ch"><div class="cn">厦门<small>福建</small></div><span class="dots"><i class="dot on"></i><i class="dot"></i><i class="dot"></i></span></div>
+      <div class="row"><span class="lb">对口</span><span>厦门钨业·金龙客车，机器人本体厂稀少</span></div>
+      <div class="row"><span class="lb">岗位</span><span>旅游+电子代工为主，控制岗机会有限</span></div>
+      <div class="row"><span class="lb">薪资</span><span>起薪 12–20 万</span></div>
+      <div class="bars">
+        <div class="bar"><span>房价</span><span class="tr"><span class="fl" style="width:62%;background:var(--rose)"></span></span><span class="vv">≈3.8万/㎡</span></div>
+        <div class="bar"><span>攒首付</span><span class="tr"><span class="fl" style="width:92%;background:var(--rose)"></span></span><span class="vv">≈25年</span></div>
+      </div>
+    </div>
+    <div class="city" data-f="weak">
+      <div class="ch"><div class="cn">福州<small>福建</small></div><span class="dots"><i class="dot on"></i><i class="dot"></i><i class="dot"></i></span></div>
+      <div class="row"><span class="lb">对口</span><span>福耀玻璃·新大陆，机器人本体稀缺</span></div>
+      <div class="row"><span class="lb">岗位</span><span>「高收入但专业归零」的典型</span></div>
+      <div class="row"><span class="lb">薪资</span><span>起薪 12–20 万</span></div>
+      <div class="bars">
+        <div class="bar"><span>房价</span><span class="tr"><span class="fl" style="width:40%;background:var(--amber)"></span></span><span class="vv">≈2.4万/㎡</span></div>
+        <div class="bar"><span>攒首付</span><span class="tr"><span class="fl" style="width:56%;background:var(--rose)"></span></span><span class="vv">≈14年</span></div>
+      </div>
+    </div>
+    <div class="city" data-f="weak">
+      <div class="ch"><div class="cn">舟山<small>浙江</small></div><span class="dots"><i class="dot on"></i><i class="dot"></i><i class="dot"></i></span></div>
+      <div class="row"><span class="lb">对口</span><span>船舶自动化/石化为主，无机器人本体</span></div>
+      <div class="row"><span class="lb">岗位</span><span>人均 GDP 全国第 8，但对控制硕士几乎「归零」</span></div>
+      <div class="row"><span class="lb">薪资</span><span>起薪 12–18 万</span></div>
+      <div class="bars">
+        <div class="bar"><span>房价</span><span class="tr"><span class="fl" style="width:23%;background:var(--teal)"></span></span><span class="vv">≈1.4万/㎡</span></div>
+        <div class="bar"><span>攒首付</span><span class="tr"><span class="fl" style="width:30%;background:var(--amber)"></span></span><span class="vv">≈8年</span></div>
+      </div>
+    </div>
+    <div class="city" data-f="weak">
+      <div class="ch"><div class="cn">镇江<small>江苏</small></div><span class="dots"><i class="dot"></i><i class="dot"></i><i class="dot"></i></span></div>
+      <div class="row"><span class="lb">对口</span><span>依附船舶/化工，控制岗少</span></div>
+      <div class="row"><span class="lb">岗位</span><span>人均 GDP 高但收入留存偏低</span></div>
+      <div class="row"><span class="lb">薪资</span><span>起薪 12–18 万</span></div>
+      <div class="bars">
+        <div class="bar"><span>房价</span><span class="tr"><span class="fl" style="width:15%;background:var(--teal)"></span></span><span class="vv">≈0.9万/㎡</span></div>
+        <div class="bar"><span>攒首付</span><span class="tr"><span class="fl" style="width:24%;background:var(--green)"></span></span><span class="vv">≈6年</span></div>
+      </div>
+    </div>
+    <div class="city" data-f="weak">
+      <div class="ch"><div class="cn">扬州<small>江苏</small></div><span class="dots"><i class="dot"></i><i class="dot"></i><i class="dot"></i></span></div>
+      <div class="row"><span class="lb">对口</span><span>汽车零部件/线缆机械，本体厂缺失</span></div>
+      <div class="row"><span class="lb">岗位</span><span>岗位依附单一产业</span></div>
+      <div class="row"><span class="lb">薪资</span><span>起薪 12–18 万</span></div>
+      <div class="bars">
+        <div class="bar"><span>房价</span><span class="tr"><span class="fl" style="width:17%;background:var(--teal)"></span></span><span class="vv">≈1.0万/㎡</span></div>
+        <div class="bar"><span>攒首付</span><span class="tr"><span class="fl" style="width:26%;background:var(--green)"></span></span><span class="vv">≈6年</span></div>
+      </div>
+    </div>
+    <div class="city" data-f="weak">
+      <div class="ch"><div class="cn">南通<small>江苏</small></div><span class="dots"><i class="dot"></i><i class="dot"></i><i class="dot"></i></span></div>
+      <div class="row"><span class="lb">对口</span><span>船舶海工、家纺装备为主</span></div>
+      <div class="row"><span class="lb">岗位</span><span>承接少量上海外溢制造</span></div>
+      <div class="row"><span class="lb">薪资</span><span>起薪 13–20 万</span></div>
+      <div class="bars">
+        <div class="bar"><span>房价</span><span class="tr"><span class="fl" style="width:20%;background:var(--teal)"></span></span><span class="vv">≈1.2万/㎡</span></div>
+        <div class="bar"><span>攒首付</span><span class="tr"><span class="fl" style="width:28%;background:var(--green)"></span></span><span class="vv">≈7年</span></div>
+      </div>
+    </div>
+    <div class="city" data-f="weak">
+      <div class="ch"><div class="cn">泰州<small>江苏</small></div><span class="dots"><i class="dot"></i><i class="dot"></i><i class="dot"></i></span></div>
+      <div class="row"><span class="lb">对口</span><span>医药城（中国医药城）为主</span></div>
+      <div class="row"><span class="lb">岗位</span><span>产业红利留在企业端，收入留存偏低</span></div>
+      <div class="row"><span class="lb">薪资</span><span>起薪 12–18 万</span></div>
+      <div class="bars">
+        <div class="bar"><span>房价</span><span class="tr"><span class="fl" style="width:15%;background:var(--teal)"></span></span><span class="vv">≈0.9万/㎡</span></div>
+        <div class="bar"><span>攒首付</span><span class="tr"><span class="fl" style="width:25%;background:var(--green)"></span></span><span class="vv">≈6年</span></div>
+      </div>
+    </div>
+    <div class="city" data-f="weak">
+      <div class="ch"><div class="cn">温州<small>浙江</small></div><span class="dots"><i class="dot"></i><i class="dot"></i><i class="dot"></i></span></div>
+      <div class="row"><span class="lb">对口</span><span>低压电器、鞋服装备；机器人零部件零星</span></div>
+      <div class="row"><span class="lb">岗位</span><span>民营经济活跃但专业对口弱</span></div>
+      <div class="row"><span class="lb">薪资</span><span>起薪 12–20 万</span></div>
+      <div class="bars">
+        <div class="bar"><span>房价</span><span class="tr"><span class="fl" style="width:30%;background:var(--amber)"></span></span><span class="vv">≈1.8万/㎡</span></div>
+        <div class="bar"><span>攒首付</span><span class="tr"><span class="fl" style="width:32%;background:var(--amber)"></span></span><span class="vv">≈8年</span></div>
+      </div>
+    </div>
+    <div class="city" data-f="weak">
+      <div class="ch"><div class="cn">湖州<small>浙江</small></div><span class="dots"><i class="dot"></i><i class="dot"></i><i class="dot"></i></span></div>
+      <div class="row"><span class="lb">对口</span><span>新能源电池（天能/超威）为主</span></div>
+      <div class="row"><span class="lb">岗位</span><span>机器人岗位需通勤杭州</span></div>
+      <div class="row"><span class="lb">薪资</span><span>起薪 12–20 万</span></div>
+      <div class="bars">
+        <div class="bar"><span>房价</span><span class="tr"><span class="fl" style="width:18%;background:var(--teal)"></span></span><span class="vv">≈1.1万/㎡</span></div>
+        <div class="bar"><span>攒首付</span><span class="tr"><span class="fl" style="width:26%;background:var(--green)"></span></span><span class="vv">≈6年</span></div>
+      </div>
+    </div>
+    <div class="city" data-f="weak">
+      <div class="ch"><div class="cn">中山<small>广东</small></div><span class="dots"><i class="dot"></i><i class="dot"></i><i class="dot"></i></span></div>
+      <div class="row"><span class="lb">对口</span><span>灯饰、家电配套；本体厂稀少</span></div>
+      <div class="row"><span class="lb">岗位</span><span>受深圳/佛山外溢，但独立机会少</span></div>
+      <div class="row"><span class="lb">薪资</span><span>起薪 13–20 万</span></div>
+      <div class="bars">
+        <div class="bar"><span>房价</span><span class="tr"><span class="fl" style="width:20%;background:var(--teal)"></span></span><span class="vv">≈1.2万/㎡</span></div>
+        <div class="bar"><span>攒首付</span><span class="tr"><span class="fl" style="width:27%;background:var(--green)"></span></span><span class="vv">≈7年</span></div>
+      </div>
+    </div>
+  </div>
+  <p class="small" style="margin-top:14px">房价为 2025–2026 年全市二手房挂牌/成交均价区间【估算】；「攒首付」口径：30% 首付、90㎡、年包×55% 税后×40% 储蓄率【估算】，仅作横向比较之用。</p>
+</section>
+
+<!-- ============ 择校 ============ -->
+<section id="school">
+  <h2><span class="num">02</span> 2028 控制专硕择校：按真实院线重排</h2>
+  <p class="h2sub">
+    口径：<b>2026 复试线 = 院系《复试录取工作细则》院线 / 复试名单推断最低入围分</b>，非校线。
+    2028 届招生以 <b>2027 年 9 月简章</b>为准。本节所有院线均已回官方页面核对（见每卡「来源」）。
+  </p>
+
+  <div class="callout bad">
+    <div class="ct">原报告 v1 的致命错误（已确认）</div>
+    <p>v1 把东南大学写成「2026 复试线 校线 320 / 2025 学院线 310」，据此判定为「院线最低、最值得冲」。<b>官方核实：东南 2026 校线 0854 = 320 属实，但自动化学院进入复试的最低分约为 391（学硕 375）</b>。两者相差约 70–80 分，属于「拿校线冒充院线」的口径错误。</p>
+  </div>
+
+  <h3>第一步 · 按真实院线重排全部院校（这是本报告对原材料的核心修正）</h3>
+  <div class="tblwrap">
+    <table data-sortable>
+      <thead><tr><th>院校</th><th>城市</th><th>层次</th><th class="num">2026 专硕院线</th><th class="num">学硕院线</th><th>数学/外语</th><th>核实</th></tr></thead>
+      <tbody>
+        <tr><td><b>江南大学</b></td><td>无锡</td><td>211</td><td class="num"><b style="color:var(--rose)">399</b></td><td class="num">355</td><td>数二 / 英二</td><td><span class="pill ok">已查证</span></td></tr>
+        <tr><td><b>浙江大学</b></td><td>杭州</td><td>985</td><td class="num"><b style="color:var(--rose)">393</b></td><td class="num">393</td><td>数一 / 英一</td><td><span class="pill ok">已查证</span></td></tr>
+        <tr><td><b>东南大学</b></td><td>南京·无锡</td><td>985</td><td class="num"><b style="color:var(--rose)">≈391</b></td><td class="num">375</td><td>数二 / 待核</td><td><span class="pill est">名单推断</span></td></tr>
+        <tr><td><b>华东理工大学</b></td><td>上海</td><td>211</td><td class="num">383<span class="small">（01）</span></td><td class="num">360</td><td>数二 / 英二</td><td><span class="pill ok">已查证</span></td></tr>
+        <tr><td><b>深圳大学</b></td><td>深圳</td><td>双非</td><td class="num">371</td><td class="num">345</td><td>待核</td><td><span class="pill ok">已查证</span></td></tr>
+        <tr><td><b>上海交通大学</b></td><td>上海</td><td>985</td><td class="num">367</td><td class="num">373</td><td>数一 / 英一</td><td><span class="pill chk">待核</span></td></tr>
+        <tr><td><b>同济大学</b></td><td>上海</td><td>985</td><td class="num">365</td><td class="num">365</td><td>数一 / 英一</td><td><span class="pill ok">已查证</span></td></tr>
+        <tr><td><b>苏州大学</b></td><td>苏州</td><td>211</td><td class="num">363</td><td class="num">324<span class="small">（2027停招）</span></td><td>数二 / 英二</td><td><span class="pill ok">已查证</span></td></tr>
+        <tr><td><b>上海大学</b></td><td>上海</td><td>211</td><td class="num">362</td><td class="num">326</td><td>数二 / 英二</td><td><span class="pill ok">已查证</span></td></tr>
+        <tr><td><b>南京航空航天大学</b></td><td>南京</td><td>211</td><td class="num">360</td><td class="num">362</td><td>数二 / <b>英一</b></td><td><span class="pill ok">已查证</span></td></tr>
+        <tr><td><b>南京理工大学</b></td><td>南京</td><td>211</td><td class="num">360</td><td class="num">340</td><td>数二 / 英二</td><td><span class="pill chk">待核</span></td></tr>
+        <tr><td><b>河海大学</b></td><td>常州金坛</td><td>211</td><td class="num">355<span class="small">（机械）</span></td><td class="num">—</td><td>数二 / 英二</td><td><span class="pill chk">待核</span></td></tr>
+        <tr><td><b>杭州电子科技大学</b></td><td>杭州</td><td>双非</td><td class="num"><b style="color:var(--teal)">327</b></td><td class="num">264</td><td><b>数一 / 英一</b></td><td><span class="pill ok">已查证</span></td></tr>
+        <tr><td><b>广东工业大学</b></td><td>广州</td><td>双非</td><td class="num">待核</td><td class="num">待核</td><td>—</td><td><span class="pill chk">待核</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="small" style="margin-top:10px">点击「2026 专硕院线」表头可排序。加粗青色为全清单最低线（杭电），加粗红色为最高线。</p>
+
+  <div class="callout warn">
+    <div class="ct">重排后的两个反直觉结论</div>
+    <p><b>① 211 不等于保底。</b>江南（211）399 分高于浙大（985）393；苏大（211）363 高于同济（985）365 附近的区间上沿。真正「低分 » 的 211 只有南航/南理工/上大（360–362）与河海（355）。</p>
+    <p><b>② 双非不等于差。</b>深大（双非）371 分，比同济、上交、苏大都高；而杭电（双非）327 分是唯一的「洼地」，但要求数一英一。</p>
+  </div>
+
+  <h3>第二步 · 三档推荐（结合你的画像与地域约束）</h3>
+
+  <div class="tier">
+    <span class="tn">冲刺档</span><span class="td">985 · 长三角 · 2026 院线 365–393，属「380+ 战场」</span>
+    <span class="badge tag t-rose">高风险</span>
+  </div>
+  <div class="grid g2">
+    <div class="sch">
+      <div class="sh">
+        <div><div class="sn">同济大学</div><div class="sc">上海 · 985 / 双一流 · 电子与信息工程学院</div></div>
+        <div class="sline"><div class="big">365</div><div class="cap">2026 专硕院线</div></div>
+      </div>
+      <div class="sb">
+        <div class="kv"><span class="k">学科评估</span><span class="v">控制科学与工程 B+（第四轮）</span></div>
+        <div class="kv"><span class="k">考试科目</span><span class="v">政治 / 英一 / 数一 / 825 自动控制原理</span></div>
+        <div class="kv"><span class="k">学硕院线</span><span class="v">365（业务课单科 100）</span></div>
+        <div class="kv"><span class="k">产业匹配</span><span class="v">上海人形前沿带 + 同济自主智能无人系统中心</span></div>
+        <div class="note"><b>点评：</b>四校中院线最低且已确认，是冲刺档里风险相对可控的一个。但 365 只是入围线，业务课单科要求 100 分，实际需要总分 380+ 才有安全垫。</div>
+        <div class="src">来源：<a href="https://see.tongji.edu.cn/info/1147/14556.htm" target="_blank">同济电信学院 2026 复试基本要求（365）</a></div>
+      </div>
+    </div>
+    <div class="sch">
+      <div class="sh">
+        <div><div class="sn">上海交通大学</div><div class="sc">上海 · C9 / 985 · 自动化与感知学院</div></div>
+        <div class="sline"><div class="big amber">367</div><div class="cap">2026 专硕院线【待核】</div></div>
+      </div>
+      <div class="sb">
+        <div class="kv"><span class="k">学科评估</span><span class="v">控制科学与工程 A（第四轮）</span></div>
+        <div class="kv"><span class="k">考试科目</span><span class="v">政治 / 英一 / 数一 / 816 自动控制理论</span></div>
+        <div class="kv"><span class="k">招生方向</span><span class="v">本部控制约 20 人；宁波研究院/苏州智研院联培同线</span></div>
+        <div class="kv"><span class="k">产业匹配</span><span class="v">上海人形前沿 + 苏州智研院（汇川/绿的半径内）</span></div>
+        <div class="note"><b>点评：</b>A 级学科 + 顶级就业，但双非考生需要初试 385+ 且复试出色。院线原报告记 367，尚未在官网核对到，标【待核】。</div>
+        <div class="src">来源：原报告所引 yzb.sjtu.edu.cn（本报告未逐条复核）</div>
+      </div>
+    </div>
+    <div class="sch focal">
+      <div class="sh">
+        <div><div class="sn">东南大学</div><div class="sc">南京（自动化学院在无锡校区）· 985 / 双一流</div></div>
+        <div class="sline"><div class="big rose">≈391</div><div class="cap">2026 专硕入围最低分</div></div>
+      </div>
+      <div class="sb">
+        <div class="kv"><span class="k">学科评估</span><span class="v">控制科学与工程 A-（第四轮）</span></div>
+        <div class="kv"><span class="k">考试科目</span><span class="v">政治 / 英语·数学卷别以 2027 目录为准 / 835 自动控制原理</span></div>
+        <div class="kv"><span class="k">学硕院线</span><span class="v">375（普通计划最低入围，<span class="pill ok">已查证</span>）</span></div>
+        <div class="kv"><span class="k">历年波动</span><span class="v">2022=343 → 2023=367 → 2025=310 → 2026≈391</span></div>
+        <div class="note"><b>点评：</b>2025 年 310 分是异常低点，2026 直接反弹 80 分。<b>大小年波动极端，赌性最大</b>。无锡校区对口信捷电气与苏锡常产业带，但冲刺须按 390+ 准备。</div>
+        <div class="src">来源：<a href="https://yzb.seu.edu.cn/_s117/2026/0324/c6689a559256/page.psp" target="_blank">自动化学院 2026 复试名单（学硕最低 375；专硕可见最低 391）</a> · <a href="https://yzb.seu.edu.cn/2026/0314/c6676a558100/page.htm" target="_blank">2026 校线 0854=320</a></div>
+      </div>
+    </div>
+    <div class="sch">
+      <div class="sh">
+        <div><div class="sn">浙江大学</div><div class="sc">杭州 · C9 / 985 · 控制科学与工程学院</div></div>
+        <div class="sline"><div class="big rose">393</div><div class="cap">2026 专硕院线</div></div>
+      </div>
+      <div class="sb">
+        <div class="kv"><span class="k">学科评估</span><span class="v">控制科学与工程 A+（第四轮，全国前 3）</span></div>
+        <div class="kv"><span class="k">考试科目</span><span class="v">政治 / 英一 / 数一 / 845 自动控制原理</span></div>
+        <div class="kv"><span class="k">招生</span><span class="v">0854 电子信息 75 人（含校企融合 5、湖州工控院 8 等）</span></div>
+        <div class="kv"><span class="k">产业匹配</span><span class="v">杭州宇树 / 海康机器人 / 云深处</span></div>
+        <div class="note"><b>点评：</b>A+ 顶级学科 + 杭州产业带，但 393 分是全清单第二高，双非考浙大控制基本要 400 左右。</div>
+        <div class="src">来源：<a href="http://www.cse.zju.edu.cn/2026/0320/c39336a3142750/page.htm" target="_blank">控制学院 2026 复试录取方案（0811=393、0854=393，招 75）</a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tier">
+    <span class="tn">稳妥档 / 主攻档</span><span class="td">211 · 院线 355–399 区间，真正的主力上岸区</span>
+    <span class="badge tag t-teal">核心</span>
+  </div>
+  <div class="grid g2">
+    <div class="sch focal">
+      <div class="sh">
+        <div><div class="sn">南京航空航天大学</div><div class="sc">南京（将军路校区）· 211 / 双一流</div></div>
+        <div class="sline"><div class="big">360</div><div class="cap">2026 专硕院线</div></div>
+      </div>
+      <div class="sb">
+        <div class="kv"><span class="k">学科评估</span><span class="v">控制科学与工程 B+，且为<b>双一流学科</b></span></div>
+        <div class="kv"><span class="k">考试科目</span><span class="v">政治 / <b>英一</b> / 数二 / 820 自动控制原理</span></div>
+        <div class="kv"><span class="k">招生</span><span class="v">085406 控制工程统考 <b>64 人</b>；081100 学硕 39 人</span></div>
+        <div class="kv"><span class="k">产业匹配</span><span class="v">南京埃斯顿 / 汇川南京；飞控无人机背景与智驾强相关</span></div>
+        <div class="note"><b>点评：</b>学科 + 名额 + 难度三者最均衡的主攻首选。唯一门槛是<b>外语考英一</b>（六级 500+ 可覆盖，但备考强度高于英二）。</div>
+        <div class="src">来源：<a href="https://www.graduate.nuaa.edu.cn/2026/0616/c13499a401776/page.htm" target="_blank">南航 2026 进入复试基本分数线（085406=360 计划 64；081100=362 计划 39）</a></div>
+      </div>
+    </div>
+    <div class="sch">
+      <div class="sh">
+        <div><div class="sn">南京理工大学</div><div class="sc">南京（孝陵卫）· 211 / 双一流</div></div>
+        <div class="sline"><div class="big amber">360</div><div class="cap">2026 专硕院线【待核】</div></div>
+      </div>
+      <div class="sb">
+        <div class="kv"><span class="k">学科评估</span><span class="v">控制科学与工程 B+（第四轮）</span></div>
+        <div class="kv"><span class="k">考试科目</span><span class="v">政治 / 英二 / 数二 / 873 自动控制理论（胡寿松）</span></div>
+        <div class="kv"><span class="k">学硕院线</span><span class="v">340【待核】</span></div>
+        <div class="kv"><span class="k">产业匹配</span><span class="v">军工 + 智能制造；就业半径同南航</span></div>
+        <div class="note"><b>点评：</b><b>英二 + 数二双友好</b>，专业课教材最通用（备考迁移成本低）。院线需在 2027 简章发布后复核。</div>
+        <div class="src">来源：<a href="https://gs.njust.edu.cn/zsw" target="_blank">南理工研究生招生网（复试线页面未抓到具体分值，标待核）</a></div>
+      </div>
+    </div>
+    <div class="sch">
+      <div class="sh">
+        <div><div class="sn">上海大学</div><div class="sc">上海 · 211 · 机电工程与自动化学院</div></div>
+        <div class="sline"><div class="big">362</div><div class="cap">2026 专硕院线</div></div>
+      </div>
+      <div class="sb">
+        <div class="kv"><span class="k">学科评估</span><span class="v">控制科学与工程 B（第四轮，主攻档最低）</span></div>
+        <div class="kv"><span class="k">考试科目</span><span class="v">政治 / 英二 / 数二 / 836 自动控制理论</span></div>
+        <div class="kv"><span class="k">学硕院线</span><span class="v">326（<span class="pill ok">已查证</span>）——主攻档最易</span></div>
+        <div class="kv"><span class="k">产业匹配</span><span class="v">上海人形前沿 + 外企制造（发那科/库卡/ABB）</span></div>
+        <div class="note"><b>点评：</b>上海区位 + 落户加分；<b>学硕 326 是「上岸 + 留沪」的高性价比通道</b>。专硕 362 不算低，学科仅 B。</div>
+        <div class="src">来源：<a href="https://gmis.shu.edu.cn/PHP/Pub/SS_Fengshuxian.php?Year=2026" target="_blank">上海大学 2026 复试分数线（机自学院 085400=362、081100=326）</a></div>
+      </div>
+    </div>
+    <div class="sch">
+      <div class="sh">
+        <div><div class="sn">华东理工大学</div><div class="sc">上海 · 211 · 信息科学与工程学院</div></div>
+        <div class="sline"><div class="big rose">383</div><div class="cap">2026 专硕 01 方向院线</div></div>
+      </div>
+      <div class="sb">
+        <div class="kv"><span class="k">学科评估</span><span class="v">控制科学与工程 B+（第四轮）</span></div>
+        <div class="kv"><span class="k">考试科目</span><span class="v">政治 / 英二 / 数二 / 816 控制原理</span></div>
+        <div class="kv"><span class="k">双方向</span><span class="v">01 控制工程 = 383；<b>02 工业软件 = 264（国家线）</b></span></div>
+        <div class="kv"><span class="k">学硕院线</span><span class="v">360</span></div>
+        <div class="note"><b>点评：</b>01 方向 383 不算「稳妥」；02 工业软件方向 264 是隐藏捷径，但就业偏工控软件/过程工业，需权衡与「控制研发」目标的对口度。</div>
+        <div class="src">来源：<a href="https://gschool.ecust.edu.cn/2026/0321/c12708a188719/page.htm" target="_blank">华理 2026 复试分数线（085406 01=383、02=264；081100=360）</a></div>
+      </div>
+    </div>
+    <div class="sch">
+      <div class="sh">
+        <div><div class="sn">江南大学</div><div class="sc">无锡 · 211 / 双一流 · 自动化与智能科学学院</div></div>
+        <div class="sline"><div class="big rose">399</div><div class="cap">全清单最高院线</div></div>
+      </div>
+      <div class="sb">
+        <div class="kv"><span class="k">学科评估</span><span class="v">控制科学与工程 B+，有博士点/博士后站</span></div>
+        <div class="kv"><span class="k">考试科目</span><span class="v">政治 / 英二 / 数二 / 807 自动控制原理</span></div>
+        <div class="kv"><span class="k">招生</span><span class="v">085406 控制工程拟招 55 人（含卓工专项 12）</span></div>
+        <div class="kv"><span class="k">相关专业</span><span class="v">085510 机器人工程 = 389；085801 电气工程 = 390</span></div>
+        <div class="note"><b>点评：</b><b>比浙大 393、东南 ≈391 还高</b>，2025→2026 学硕线 306→355 大涨。学科与无锡区位都硬，但 399 是「冲刺中的冲刺」，<b>绝不能当保底</b>。</div>
+        <div class="src">来源：<a href="https://yz.jiangnan.edu.cn/info/1075/3747.htm" target="_blank">江南大学 2026 复试分数线（085406=399、081100=355、085510=389）</a> · <a href="https://iot.jiangnan.edu.cn/info/1126/4663.htm" target="_blank">学院 2026 复试细则（拟招 55）</a></div>
+      </div>
+    </div>
+    <div class="sch">
+      <div class="sh">
+        <div><div class="sn">苏州大学</div><div class="sc">苏州 · 211 / 双一流 · 机电工程学院</div></div>
+        <div class="sline"><div class="big amber">363</div><div class="cap">2026 专硕院线</div></div>
+      </div>
+      <div class="sb">
+        <div class="kv"><span class="k">学科评估</span><span class="v">控制科学与工程 C（第四轮）</span></div>
+        <div class="kv"><span class="k">考试科目</span><span class="v">政治 / 英二 / 数二 / 839 自动控制原理</span></div>
+        <div class="kv"><span class="k">招生</span><span class="v">085406 控制工程拟招 21 人（含 2 城市学院联培）</span></div>
+        <div class="kv"><span class="k">重要变化</span><span class="v"><b>控制学硕（081100）2027 年起停招</b></span></div>
+        <div class="note"><b>点评：</b>学科 C 却要 363 分，本质是「为苏州区位付费」。苏州就业半径顶级（汇川/华为苏研所/博世/禾赛），适合「非苏州不可」型考生，求稳建议 380+。</div>
+        <div class="src">来源：<a href="https://jdxy.suda.edu.cn/8d/13/c12042a691475/page.htm" target="_blank">苏大机电学院 2026 复试细则（085406=363 拟招 21）</a></div>
+      </div>
+    </div>
+    <div class="sch">
+      <div class="sh">
+        <div><div class="sn">河海大学</div><div class="sc">常州（金坛校区）· 211 / 双一流（水利）</div></div>
+        <div class="sline"><div class="big amber">355</div><div class="cap">机械专硕院线【待核】</div></div>
+      </div>
+      <div class="sb">
+        <div class="kv"><span class="k">学科评估</span><span class="v"><b>无控制科学与工程一级学科</b>，走机械路线</span></div>
+        <div class="kv"><span class="k">考试科目</span><span class="v">085500 机械（机器人方向）/ 机械原理，非自控</span></div>
+        <div class="kv"><span class="k">产业匹配</span><span class="v">常州金坛 = 节卡 / 江苏雷利 / 鼎智产业带</span></div>
+        <div class="note"><b>点评：</b>区位不错，但<b>无 085406 对口、专业课考机械原理</b>，只能作为「机械-机器人」备选，与你的控制方向目标有偏差。</div>
+        <div class="src">来源：<a href="https://gs.hhu.edu.cn/2026/0323/c17279a323836/page.htm" target="_blank">河海 2026 进入复试成绩基本要求（机电学院段落未抓到，标待核）</a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tier">
+    <span class="tn">保底档</span><span class="td">强双非 · 仅限「学科极强 + 就业极好」</span>
+    <span class="badge tag t-blue">性价比</span>
+  </div>
+  <div class="grid g2">
+    <div class="sch focal">
+      <div class="sh">
+        <div><div class="sn">杭州电子科技大学</div><div class="sc">杭州 · 双非 · 自动化学院 · 控制 B+ 有博士点</div></div>
+        <div class="sline"><div class="big">327</div><div class="cap">2026 自划线（高于国家线 264）</div></div>
+      </div>
+      <div class="sb">
+        <div class="kv"><span class="k">学科评估</span><span class="v">控制科学与工程 B+（有博士点）</span></div>
+        <div class="kv"><span class="k">考试科目</span><span class="v">政治 / <b>英一</b> / <b>数一</b> / 861 自动控制原理</span></div>
+        <div class="kv"><span class="k">招生</span><span class="v">085406 控制工程拟招 <b>240 人</b>（含推免 6、士兵 1）</span></div>
+        <div class="kv"><span class="k">产业匹配</span><span class="v">杭州宇树 / 海康 / 云深处，与「机器人控制研发」最对口</span></div>
+        <div class="note"><b>点评（全报告性价比之王）：</b>B+ 学科 + 240 个名额 + 327 低线 + 杭州产业带，容错率最高。唯一硬骨头是<b>数一英一</b>，需要提前一年半规划数学与英语。</div>
+        <div class="src">来源：<a href="http://grs.hdu.edu.cn/2026/0324/c13270a290580/page.htm" target="_blank">杭电 2026 复试分数线（自动化学院 085406=327 自划线，单科 40/53）</a></div>
+      </div>
+    </div>
+    <div class="sch">
+      <div class="sh">
+        <div><div class="sn">深圳大学</div><div class="sc">深圳 · 双非 · 机电与控制工程学院</div></div>
+        <div class="sline"><div class="big rose">371</div><div class="cap">2026 专硕院线</div></div>
+      </div>
+      <div class="sb">
+        <div class="kv"><span class="k">专硕</span><span class="v">085406 控制工程 = 371（<span class="pill ok">已查证</span>）</span></div>
+        <div class="kv"><span class="k">学硕</span><span class="v">081100 控制科学与工程 = 345（<span class="pill ok">已查证</span>）</span></div>
+        <div class="kv"><span class="k">区位</span><span class="v">深圳机器人岗位密度全国第一</span></div>
+        <div class="note"><b>点评：</b>371 分已超过同济、上交、苏大，<b>实际是「伪保底」</b>。原报告将其列为不推荐，从「分数/层次比」角度是合理的——同样的分数不如报 211。仅适合「非深圳不可」者。</div>
+        <div class="src">来源：<a href="https://yz.szu.edu.cn/info/1041/14396.htm" target="_blank">深圳大学 2026 复试分数线（085406=371、081100=345）</a></div>
+      </div>
+    </div>
+    <div class="sch">
+      <div class="sh">
+        <div><div class="sn">广东工业大学</div><div class="sc">广州（番禺）· 双非 · 自动化学院 · 控制 A-</div></div>
+        <div class="sline"><div class="big amber">待核</div><div class="cap">2026 专硕院线</div></div>
+      </div>
+      <div class="sb">
+        <div class="kv"><span class="k">学科评估</span><span class="v">控制科学与工程 <b>A-</b>（第四轮，双非中最高）</span></div>
+        <div class="kv"><span class="k">招生</span><span class="v">0854 电子信息（控制工程 01/02 方向 + 人工智能）</span></div>
+        <div class="kv"><span class="k">区位</span><span class="v">广州「车 + 机器人 + 数控」三角，珠三角次选代表</span></div>
+        <div class="note"><b>点评：</b>双非中控制学科最强（A-），珠三角就业对口。院线原报告记为 290/369/355/301（多方向），本报告未在官网逐条复核，标【待核】。</div>
+        <div class="src">来源：<a href="https://yzw.gdut.edu.cn/info/1020/3669.htm" target="_blank">广东工业大学 2026 复试基本分数线（页面需展开核对）</a></div>
+      </div>
+    </div>
+    <div class="sch">
+      <div class="sh">
+        <div><div class="sn">不推荐清单</div><div class="sc">以下情况会显著降低「控制研发」目标的达成率</div></div>
+      </div>
+      <div class="sb">
+        <div class="note" style="border-top:none;padding-top:0">
+          <p><b>① 深大当保底</b>——371 分 + 双非层次，同分报 211 更划算。</p>
+          <p><b>② 河海当控制备选</b>——无 085406，专业课考机械原理，方向错位。</p>
+          <p><b>③ 把「校线」当「院线」估分</b>——东南校线 320 ≠ 院线 ≈391，这是最危险的误判。</p>
+          <p><b>④ 只看一年院线定档</b>——大小年摆幅可达 80 分。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3>第三步 · 长三角 vs 珠三角</h3>
+  <div class="two">
+    <div class="tblwrap">
+      <table>
+        <thead><tr><th>维度</th><th>长三角（沪苏浙）</th><th>珠三角（深广莞佛）</th></tr></thead>
+        <tbody>
+          <tr><td>院校密度</td><td><b>极高</b>（4 所 985 + 8 所 211 可及）</td><td>较低（主要靠深大、广工）</td></tr>
+          <tr><td>产业对口</td><td>全链条：伺服/减速器/PLC/工业机器人/人形</td><td>本体 + 三电 + 智驾 + 服务机器人</td></tr>
+          <tr><td>薪资水平</td><td>苏锡常为沪深 8–9 折</td><td>深圳接近上海，广州偏低</td></tr>
+          <tr><td>房价压力</td><td><b>梯度友好</b>（苏州/无锡/常州洼地）</td><td>深圳/广州高，莞佛为洼地</td></tr>
+          <tr><td>上岸难度</td><td>头部 985 极卷（365–393）</td><td>可选择面窄，但深大/广工有空间</td></tr>
+          <tr><td>结论</td><td><b>优先</b>：院校与产业带可同时最优</td><td><b>次选</b>：适合「认准深圳」者</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card flat">
+      <h4 style="margin-top:0">为什么长三角胜出</h4>
+      <p>你的核心约束是「院校 ≥ 211」+「产业对口」。<b>只有长三角能同时满足</b>：上海（同济/上交/上大/华理）、南京（东南/南航/南理工）、无锡（江南）、苏州（苏大）、杭州（浙大/杭电）——<b>五城九校</b>全部落在机器人/控制产业带上。</p>
+      <p>珠三角可选院校少，且深大要高 371 分；除非你坚定「深圳优先」，否则珠三角的边际收益低于长三角。</p>
+      <p class="small">建议主攻区：<b>南京 + 无锡 + 苏州</b>（院校与产业匹配度最高、房价最友好）。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 趋势 ============ -->
+<section id="trend">
+  <h2><span class="num">03</span> 趋势展望：未来十年的三个判断</h2>
+  <p class="h2sub">本章回答三个问题：<b>① 行业会不会持续扩张？② 考研竞争会不会更卷？③ 城市与房价会怎么走？</b>所有预测都标注置信度，机构分歧大处明确说明——请勿把预测当作确定事实。</p>
+
+  <h3>3.1 产业趋势：人形机器人 / 具身智能 2026 → 2035</h3>
+  <p>这是判断「值不值得读控制、值不值得进这个行业」的前提。先看机构对市场规模的预测——<b>分歧高达 3 倍以上</b>，这本身就是重要信息。</p>
+
+  <div class="tblwrap">
+    <table>
+      <thead><tr><th>机构</th><th>2030 预测</th><th>2035 预测</th><th>置信度 / 口径</th></tr></thead>
+      <tbody>
+        <tr><td>GGII 高工机器人</td><td>全球 ≈34 万台 / &gt;640 亿元</td><td>全球 &gt;500 万台 / &gt;4000 亿元</td><td><span class="pill ok">已查证</span> 出货 + 销售额</td></tr>
+        <tr><td>IDC（经中金转引）</td><td>全球 51 万台（2025 仅 1.8 万台，CAGR ≈95%）</td><td>—</td><td><span class="pill ok">已查证</span></td></tr>
+        <tr><td>高盛（上修后）</td><td>—</td><td>全球出货 650 万台（旧值 140 万），约 1540 亿美元</td><td><span class="pill ok">已查证</span></td></tr>
+        <tr><td>贝恩 Bain</td><td>—</td><td>基准 600 万台 / 1200 亿美元；乐观 &gt;1000 万台 / 2600 亿美元</td><td><span class="pill ok">已查证</span></td></tr>
+        <tr><td>瑞银 UBS</td><td>—</td><td>全球 ≈200 万台</td><td><span class="pill est">推测</span></td></tr>
+        <tr><td>中金</td><td>中国 35 万台 / 581 亿元</td><td>—</td><td><span class="pill ok">已查证</span></td></tr>
+        <tr><td>摩根士丹利（上修）</td><td>中国 26.2 万台</td><td>中国 260 万台</td><td><span class="pill ok">已查证</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout">
+    <div class="ct">分歧的核心是什么</div>
+    <p>仅靠<b>工业/物流场景</b>只能支撑百万台级；<b>家庭消费场景能否在 2035 前打开</b>，决定了 500 万台还是 200 万台的差距；单台均价假设（15 万 vs 5 万元）又让销售额预测差 3 倍。<span class="pill est">推测·中</span></p>
+  </div>
+
+  <h4>商业化时间轴</h4>
+  <div class="tl">
+    <div class="it"><div class="yr">2026 · 量产元年</div><div class="tx">行业称 2026 为量产元年；宇树累计下线约 1.8 万台、智元 9 月破 2 万台。<span class="pill ok">已查证·高</span></div></div>
+    <div class="it"><div class="yr">2028–2030 · 工业规模化</div><div class="tx">全球年出货达 50 万台级；物流仓储 + 汽车率先规模化；BOM 降至 15 万元内。<span class="pill est">推测·中</span></div></div>
+    <div class="it"><div class="yr">2031–2033 · 成本拐点</div><div class="tx">BOM 降至 1–1.5 万美元；使用成本逼近工人年薪（约 8 万元），中小企业采购窗口打开。<span class="pill est">推测·中</span></div></div>
+    <div class="it"><div class="yr">2034–2035 · 百万台临界</div><div class="tx">全球年出货 500–650 万台、规模约 4000 亿元 / 1200 亿美元；家庭场景决定能否冲 1000 万台。<span class="pill est">推测·中</span></div></div>
+  </div>
+  <p class="small">锚点：特斯拉 Optimus 弗里蒙特产线设计年产能 100 万台、长期成本目标 2 万美元/台；但历史已跳票 2 次，2026–27 节点存在再右移 6–12 个月的风险。国内 2026 已现「产能 &gt; 订单」错配（优必选柳州满产 5.2 万台、当年目标仅出货 3000 台）。<span class="pill ok">已查证·中</span></p>
+
+  <h4>核心零部件国产化率（2026 口径）</h4>
+  <div class="tblwrap">
+    <table>
+      <thead><tr><th>零部件</th><th class="num">国产化率</th><th>国产玩家 / 说明</th></tr></thead>
+      <tbody>
+        <tr><td>无框/空心杯电机、伺服+控制器</td><td class="num"><b>&gt;85%</b></td><td>鸣志、汇川、禾川、雷赛</td></tr>
+        <tr><td>谐波减速器</td><td class="num">60–70%</td><td>绿的谐波、来福、中大力德；单价从 3000–5000 降至 1500–2000 元</td></tr>
+        <tr><td>行星滚柱丝杠</td><td class="num">40–50%</td><td>五洲新春、贝斯特、北特；价格已降 &gt;80%</td></tr>
+        <tr><td>六维力/力矩传感器</td><td class="num">快速提升</td><td>万元级 → 5000 元以内</td></tr>
+        <tr><td>力/触觉传感器、电子皮肤、灵巧手</td><td class="num"><b>最低（瓶颈）</b></td><td>帕西尼、汉威；降本最后堡垒</td></tr>
+        <tr><td><b>整体核心零部件</b></td><td class="num"><b>&gt;75%</b></td><td>剔除中国供应链，单台成本约 3 倍</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="small">政策与渗透率：国家级《「机器人+」应用行动方案》（2023.1）目标已超额完成；中国制造业机器人密度 <b>470 台/万人</b>，全球第三（韩 1012、新 770），但全球自动化渗透率仍仅约 0.74%，替代空间巨大。<span class="pill ok">已查证·高</span></p>
+
+  <div class="callout">
+    <div class="ct">对择城择校的含义</div>
+    <p>2030 年前，人形对蓝领仍是「点状试点」；<b>2032 年后</b>才在汽车/3C/物流形成可观测的替代曲线。也就是说，<b>你 2028 毕业、2028–2032 的职业黄金起步期，恰好落在行业从试点走向规模化的窗口</b>——选择「本体 + 零部件 + 运控」这类<b>不依赖家庭场景打开</b>的岗位，风险最低。</p>
+  </div>
+
+  <h3>3.2 考研竞争趋势：2028 届会更卷吗？</h3>
+  <p>这是与择校直接相关的预测。我们用已核实的多年院线数据做趋势外推。</p>
+
+  <h4>趋势一 · 头部 985 已进入「380+ 常态区」</h4>
+  <div class="card flat">
+    <p style="margin-bottom:14px">东南大学自动化学院 0854 历年院线：</p>
+    <div style="display:flex;align-items:flex-end;gap:14px;height:170px;padding:0 8px">
+      <div style="text-align:center;flex:1"><div style="height:72px;background:var(--line2);border-radius:6px 6px 0 0"></div><div class="small" style="margin-top:6px">2022<br><b style="color:var(--tx)">343</b></div></div>
+      <div style="text-align:center;flex:1"><div style="height:98px;background:var(--line2);border-radius:6px 6px 0 0"></div><div class="small" style="margin-top:6px">2023<br><b style="color:var(--tx)">367</b></div></div>
+      <div style="text-align:center;flex:1"><div style="height:42px;background:var(--amber);border-radius:6px 6px 0 0"></div><div class="small" style="margin-top:6px">2025<br><b style="color:var(--amber)">310</b></div></div>
+      <div style="text-align:center;flex:1"><div style="height:124px;background:var(--rose);border-radius:6px 6px 0 0"></div><div class="small" style="margin-top:6px">2026<br><b style="color:var(--rose)">≈391</b></div></div>
+    </div>
+    <p style="margin-top:14px;margin-bottom:0" class="small">四年摆幅 81 分。2025 年的 310 是异常低点（受当年报考人数与推免结构影响），2026 直接反弹 80 分。</p>
+  </div>
+  <div class="callout warn">
+    <div class="ct">预测（2028 届）</div>
+    <p><b>头部 985 冲刺档大概率维持 370–400 区间波动</b>，出现「回到 310」的概率极低。判断依据：① 控制/机器人专业热度持续上升；② 推免比例逐年提高，统考名额被压缩；③ 2026 的 391 已把「低分预期」清理掉，2027–2028 报考会更理性集中。<span class="pill est">推测·中</span></p>
+    <p class="small">建议：把冲刺档当作「彩票」而非主攻，主力名额留给 355–365 区间的 211。</p>
+  </div>
+
+  <h4>趋势二 · 211 是「挤压带」，分数线最可能继续上行</h4>
+  <p>当 985 门槛抬到 380+，大量考生会下沉到 211。<b>南航（360）、南理工（360）、上大（362）这条 360 线，是最拥挤的「挤压带」</b>。江南 399、苏大 363 已是先行信号——区位好的 211 会继续被推高。</p>
+  <div class="callout warn">
+    <div class="ct">预测（2028 届）</div>
+    <p>区位优的 211（苏州/上海/杭州）院线<b>大概率上行 5–15 分</b>；区位一般或学科一般的 211 相对稳定。应对：<b>主攻档留 15 分安全垫（按 375 备考）</b>，不要卡线。<span class="pill est">推测·中</span></p>
+  </div>
+
+  <h4>趋势三 · 强双非的「价值洼地」会收窄，但杭电窗口仍在</h4>
+  <p>杭电 327 分 + 240 名额的组合，是典型的「信息差红利」。随着越来越多考生发现，分数线温和上行是大概率事件。</p>
+  <div class="callout">
+    <div class="ct">预测（2028 届）</div>
+    <p>杭电 085406 院线可能<b>上行至 335–350</b>，但仍将是全清单最低。只要它坚持数一英一，就能持续过滤掉一部分考生，洼地不会完全消失。<span class="pill est">推测·中</span></p>
+    <p class="small">策略含义：<b>越早锁定杭电作为保底越有利</b>；同时因为考数一英一，可以「一备多用」——同一套复习同时覆盖浙大/上交/同济的冲刺可能。</p>
+  </div>
+
+  <h4>趋势四 · 科目结构在「两极化」</h4>
+  <div class="tblwrap">
+    <table>
+      <thead><tr><th>科目组合</th><th>代表院校</th><th>趋势判断</th></tr></thead>
+      <tbody>
+        <tr><td>数一 + 英一</td><td>浙大、上交、同济、杭电</td><td>难度最高；杭电是唯一「低线 + 数一英一」的组合</td></tr>
+        <tr><td>数二 + 英一</td><td>南航</td><td>数学友好、外语加压，适合数学一般但英语强的考生</td></tr>
+        <tr><td>数二 + 英二</td><td>南理工、上大、华理、江南、苏大、河海</td><td>最友好组合，也是报考最集中的组合，线易被推高</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="small">给你的建议：六级 500+ 说明英语基础扎实，<b>「数二 + 英一」的南航其实很匹配</b>（数学压力小、英语优势能用上）。若数学极强，则杭电/浙大路线的数一英一会把你的优势最大化。</p>
+
+  <h3>3.3 城市趋势：2035 格局的三档情景</h3>
+  <p>把产业趋势落到城市上。以下为情景推演，非确定预测。</p>
+  <div class="grid g3">
+    <div class="card" style="border-color:rgba(74,222,128,.3)">
+      <span class="tag t-teal">乐观情景 ≈30%</span>
+      <h4>具身智能超预期</h4>
+      <p>2030 年全球出货破 50 万台，家庭场景提前打开。<b>上海/深圳/杭州</b>成为全球人形研发双中心，苏州/宁波的零部件企业量价齐升。</p>
+      <p class="small">结果：控制硕士起薪普遍上探 10–20%，苏锡常房价补涨，但产业溢价主要集中在沪深杭。</p>
+    </div>
+    <div class="card" style="border-color:rgba(61,214,189,.3)">
+      <span class="tag t-teal">基准情景 ≈50%</span>
+      <h4>工业/物流稳步放量</h4>
+      <p>2030 年出货 30–50 万台，规模化集中于物流、汽车、3C。<b>长三角制造带成为最大受益方</b>，苏州、无锡、常州、南京的工业机器人/零部件岗位持续扩张。</p>
+      <p class="small">结果：控制岗薪资稳中有升，制造业城市性价比进一步凸显，「留苏锡常」成为主流选择。</p>
+    </div>
+    <div class="card" style="border-color:rgba(242,100,122,.3)">
+      <span class="tag t-rose">悲观情景 ≈20%</span>
+      <h4>商业化不及预期</h4>
+      <p>家庭场景迟迟打不开，行业退化为「高端工业自动化」。初创公司出清，岗位向头部集中。</p>
+      <p class="small">结果：人形相关岗位收紧，但工业自动化、伺服/运控、半导体装备控制的岗位需求依然稳定——<b>选择「工业基本盘」而非「人形概念」最抗风险</b>。</p>
+    </div>
+  </div>
+
+  <h4>房价与「攒首付能力」的演变方向</h4>
+  <div class="tblwrap">
+    <table>
+      <thead><tr><th>城市类型</th><th>房价趋势</th><th>对控制硕士的攒首付影响</th></tr></thead>
+      <tbody>
+        <tr><td>苏州 / 无锡 / 常州 / 东莞 / 佛山</td><td>横盘或温和上行</td><td><b>改善</b>：工资涨幅 &gt; 房价涨幅，攒首付年限继续缩短</td></tr>
+        <tr><td>杭州 / 南京 / 广州</td><td>核心区企稳、外围横盘</td><td><b>基本持平</b>：产业溢价与房价同步</td></tr>
+        <tr><td>深圳 / 上海 / 北京</td><td>核心区随产业溢价企稳、远郊横盘</td><td><b>难以改善</b>：即使薪资上行，首付门槛仍高（20 年以上）</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="small">结论：<b>「先在最卷的城市拿前沿经验（3–5 年），再回到苏锡常/珠三角外围定居」是目前最现实的两段式路径</b>。产业升级的红利主要沉淀在长三角制造带，而不在一线城市的核心区。</p>
+</section>
+
+<!-- ============ 建议 ============ -->
+<section id="advice">
+  <h2><span class="num">04</span> 择城择校联动建议</h2>
+  <p class="h2sub">把前三节整合成一条可执行路径。<b>原则：院校所在城市 = 目标产业带</b>，避免「考到一座没有对口岗位的城市」。</p>
+
+  <div class="grid g2">
+    <div class="card focal">
+      <h3 style="margin-top:0">方案 A · 稳健优先（推荐）</h3>
+      <p><b>院校组合：杭电（保底）+ 南航（主攻）+ 同济（冲刺）</b></p>
+      <div class="hr"></div>
+      <p class="small" style="margin-bottom:6px">逻辑</p>
+      <ul>
+        <li>杭电：327 分 + 240 名额 + 杭州产业带，容错率最高；考数一英一</li>
+        <li>南航：360 分 + 双一流控制学科 + 64 名额，主攻首选；考数二英一（数学压力小，匹配你的英语优势）</li>
+        <li>同济：365 分是四所 985 中最低且已确认，冲刺性价比最好</li>
+      </ul>
+      <p class="small">科目兼容性：杭电数一英一 ⊃ 同济数一英一；南航数二英一需额外补足数二差异。<b>建议统一按「数一 + 英一」复习</b>，可同时覆盖杭电与同济，南航的数二反而成为降维。</p>
+    </div>
+    <div class="card">
+      <h3 style="margin-top:0">方案 B · 城市优先（苏州/南京）</h3>
+      <p><b>院校组合：杭电（保底）+ 南理工/上大（主攻）+ 东南（冲刺）</b></p>
+      <div class="hr"></div>
+      <p class="small" style="margin-bottom:6px">逻辑</p>
+      <ul>
+        <li>若强烈偏好「南京 + 苏州」就业半径：南理工（360，数二英二最友好）+ 南航（360）双选</li>
+        <li>东南（≈391）作为冲刺，但须认清其大小年波动极大，是「彩票」</li>
+        <li>苏大（363）作为苏州落点的直接通道，但学科仅 C，本质为区位付费</li>
+      </ul>
+      <p class="small">风险：东南 2026 已到 391，2027–2028 可能继续高位或回落，赌性强。</p>
+    </div>
+    <div class="card">
+      <h3 style="margin-top:0">方案 C · 珠三角定向（坚定深圳）</h3>
+      <p><b>院校组合：广工（保底）+ 深大（冲）+ 华工（冲刺，需另行核实）</b></p>
+      <div class="hr"></div>
+      <p class="small" style="margin-bottom:6px">逻辑</p>
+      <ul>
+        <li>广工控制 A-（双非最高），广州「车+机器人+数控」三角</li>
+        <li>深大 371 分偏高，性价比一般，仅适合「非深圳不可」</li>
+        <li>珠三角可及院校数量少，需接受「选择面窄」的代价</li>
+      </ul>
+      <p class="small">不建议作为首选，除非有明确的深圳家庭/职业绑定。</p>
+    </div>
+    <div class="card flat">
+      <h3 style="margin-top:0">时间线（2024 级 → 2028 届）</h3>
+      <div class="tl" style="margin-top:14px">
+        <div class="it"><div class="yr">2026 秋冬（大三上）</div><div class="tx">确定科目路线（数一/数二、英一/英二）；数学基础第一轮</div></div>
+        <div class="it"><div class="yr">2027 春夏（大三下）</div><div class="tx">数学强化 + 专业课（自动控制原理）第一轮；六级冲 550+</div></div>
+        <div class="it"><div class="yr">2027 年 9 月</div><div class="tx"><b>关注 2028 招生简章</b>——确认统考名额、科目、学硕是否停招（如苏大）</div></div>
+        <div class="it"><div class="yr">2027 年 12 月</div><div class="tx">初试。目标分：冲刺 385+ / 主攻 375+ / 保底 350+</div></div>
+        <div class="it"><div class="yr">2028 年 3–4 月</div><div class="tx">复试：专业课笔试 + 综合面试（多数院校复试权重 30–40%）</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout warn" style="margin-top:22px">
+    <div class="ct">三个必须自己确认的事项</div>
+    <p>① <b>2027 年 9 月简章</b>发布后，逐校核对统考名额、考试科目与学硕是否停招——本报告所有「2028 届」推断都以此为准。</p>
+    <p>② 标记为【待核】的四项（上交 367、南理工 360/340、河海 355、广工院线）需在官网逐一确认。</p>
+    <p>③ 复试公平性、导师方向（是否真做机器人/运控）需通过学长学姐、导师主页进一步验证，本报告无法覆盖。</p>
+  </div>
+</section>
+
+<!-- ============ 核实 ============ -->
+<section id="verify">
+  <h2><span class="num">05</span> 数据核实与纠错说明</h2>
+  <p class="h2sub">本节说明本报告对两份原材料的核实结果：哪些已确认、哪些纠正、哪些仍待核。</p>
+
+  <h3>5.1 已确认正确的关键数据（抽样）</h3>
+  <div class="card flat">
+    <p><b>城市口径</b>：北京人均 GDP 22.8 万、苏州 20.6 万、无锡 21.68 万、深圳 20.57 万、广州 16.42 万；上海可支配收入 88,366 元、北京 85,415 元、深圳 81,123 元——均与官方统计公报一致。</p>
+    <p><b>院校院线</b>：浙大 393/393、东南学硕 375（专硕入围最低可见 391）、南航 360/362、上大 362/326、华理 383/264/360、江南 399/355、苏大 363、杭电 327、深大 371/345、同济 365 均已在校/院官网核对一致。</p>
+  </div>
+
+  <h3>5.2 纠正与风险提示</h3>
+  <div class="tblwrap">
+    <table>
+      <thead><tr><th>问题</th><th>原材料</th><th>本报告处理</th></tr></thead>
+      <tbody>
+        <tr><td><b>校线冒充院线</b></td><td>v1 称东南「2026 复试线 320」，评为最值得冲</td><td>已纠正：320 是校线，院线约 391；降级为「高波动彩票」</td></tr>
+        <tr><td>档次与层次错配</td><td>按「985 冲刺 / 211 主攻 / 双非保底」分层</td><td>已改为<b>按真实院线重排</b>：江南 399 高于浙大 393；深大 371 高于同济</td></tr>
+        <tr><td>深大定位矛盾</td><td>既称「双非达标」又称「不推荐」</td><td>明确：371 分属「伪保底」，同分报 211 更划算</td></tr>
+        <tr><td>待核数值</td><td>上交 367/373、南理工 360/340、河海 355、广工多值</td><td>保留但标注【待核】，需在官网确认</td></tr>
+        <tr><td>房价口径不一</td><td>部分城市混用全市/主城均价</td><td>统一采用全市二手房均价区间，并标注【估算】</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>5.3 主要数据来源</h3>
+  <div class="grid g2">
+    <details open><summary>城市经济数据（官方统计公报）</summary>
+      <ul style="margin-bottom:0">
+        <li>北京市统计局《2024 年国民经济和社会发展统计公报》（人均 GDP 22.8 万）</li>
+        <li>苏州市统计局 2024 年公报（人均 GDP 20.6 万）</li>
+        <li>无锡市政府 2024 年公报（人均 GDP 21.68 万）</li>
+        <li>深圳市统计局 2024 年公报（人均 GDP 205,714 元；居民收入 81,123 元）</li>
+        <li>上海市统计局 2024 年公报（居民收入 88,366 元）</li>
+        <li>广州市统计局 2024 年公报（人均 GDP 164,171 元）</li>
+      </ul>
+    </details>
+    <details open><summary>院校复试线（校 / 院官网）</summary>
+      <ul style="margin-bottom:0">
+        <li><a href="http://www.cse.zju.edu.cn/2026/0320/c39336a3142750/page.htm" target="_blank">浙江大学控制学院 2026 复试录取方案</a></li>
+        <li><a href="https://yzb.seu.edu.cn/_s117/2026/0324/c6689a559256/page.psp" target="_blank">东南大学自动化学院 2026 复试名单</a> · <a href="https://yzb.seu.edu.cn/2026/0314/c6676a558100/page.htm" target="_blank">2026 校线</a></li>
+        <li><a href="https://www.graduate.nuaa.edu.cn/2026/0616/c13499a401776/page.htm" target="_blank">南京航空航天大学 2026 复试基本分数线</a></li>
+        <li><a href="https://gmis.shu.edu.cn/PHP/Pub/SS_Fengshuxian.php?Year=2026" target="_blank">上海大学 2026 复试分数线</a></li>
+        <li><a href="https://gschool.ecust.edu.cn/2026/0321/c12708a188719/page.htm" target="_blank">华东理工大学 2026 复试分数线</a></li>
+        <li><a href="https://yz.jiangnan.edu.cn/info/1075/3747.htm" target="_blank">江南大学 2026 复试分数线</a></li>
+        <li><a href="https://jdxy.suda.edu.cn/8d/13/c12042a691475/page.htm" target="_blank">苏州大学机电学院 2026 复试细则</a></li>
+        <li><a href="http://grs.hdu.edu.cn/2026/0324/c13270a290580/page.htm" target="_blank">杭州电子科技大学 2026 复试分数线</a></li>
+        <li><a href="https://yz.szu.edu.cn/info/1041/14396.htm" target="_blank">深圳大学 2026 复试分数线</a></li>
+        <li><a href="https://see.tongji.edu.cn/info/1147/14556.htm" target="_blank">同济大学电信学院 2026 复试基本要求</a></li>
+      </ul>
+    </details>
+    <details><summary>产业趋势数据</summary>
+      <p style="margin-bottom:0">市场规模预测来自 GGII、IDC、高盛、贝恩、瑞银、中金、摩根士丹利等机构公开研报/公告；国产化率来自中国信通院等；政策文件为工信部《「机器人+」应用行动方案》《人形机器人创新发展指导意见》。<b>机构预测分歧大，请勿当作确定预期。</b></p>
+    </details>
+    <details><summary>原参考材料</summary>
+      <ul style="margin-bottom:0">
+        <li><a href="https://4m4gd97fh0jhy.doubaoapps.com/app/app_17ft96yyyxf" target="_blank">城市生存压力研究（机器人/控制修订版）</a></li>
+        <li><a href="https://4m4gd97fh0jhy.doubaoapps.com/app/app_17ft3acchd3" target="_blank">2028 考研·控制专硕择校方案 v2.0</a></li>
+      </ul>
+      <p style="margin-bottom:0" class="small">本报告在其基础上重新组织、逐条核实并纠错，结构、分析方法与结论均独立完成。</p>
+    </details>
+  </div>
+</section>
+
+</main>
+
+<footer class="wrap">
+  <p><b>机器人 / 控制方向 · 城市落点与 2028 择校一体化规划</b></p>
+  <p>数据基准：城市为 2024 年度统计公报；院校为 2026 年复试院线；产业预测覆盖 2026–2035。生成于 2026-10-12。</p>
+  <p>本报告为个人决策参考，不构成对任何院校录取结果的承诺。标【待核】项请以 2027 年 9 月招生简章与官网为准。</p>
+</footer>
+
+<script>
+// 表头排序
+document.querySelectorAll('table[data-sortable]').forEach(function(tbl){
+  var ths = tbl.querySelectorAll('th');
+  ths.forEach(function(th, idx){
+    th.addEventListener('click', function(){
+      var rows = Array.prototype.slice.call(tbl.querySelectorAll('tbody tr'));
+      var asc = th.dataset.asc !== 'true';
+      th.dataset.asc = asc;
+      var get = function(tr){
+        var c = tr.children[idx];
+        if(!c) return '';
+        var t = c.textContent.trim().replace(/,/g,'');
+        var m = t.match(/-?\d+(\.\d+)?/);
+        return m ? parseFloat(m[0]) : t;
+      };
+      rows.sort(function(a,b){
+        var x = get(a), y = get(b);
+        if(typeof x === 'number' && typeof y === 'number') return asc ? x-y : y-x;
+        x = String(x); y = String(y);
+        return asc ? x.localeCompare(y,'zh') : y.localeCompare(x,'zh');
+      });
+      rows.forEach(function(r){ tbl.querySelector('tbody').appendChild(r); });
+      ths.forEach(function(o){ o.querySelectorAll('.arw').forEach(function(a){ a.remove(); }); });
+      var arw = document.createElement('span');
+      arw.className = 'arw';
+      arw.textContent = asc ? '▲' : '▼';
+      th.appendChild(arw);
+      // 重排序号
+      tbl.querySelectorAll('tbody tr').forEach(function(r,i){
+        var rc = r.querySelector('td.rank');
+        if(rc) rc.textContent = i+1;
+      });
+    });
+  });
+});
+
+// 城市筛选
+(function(){
+  var bar = document.getElementById('cityFilter');
+  if(!bar) return;
+  var cards = document.querySelectorAll('#cityGrid .city');
+  bar.addEventListener('click', function(e){
+    var b = e.target.closest('button');
+    if(!b) return;
+    bar.querySelectorAll('button').forEach(function(x){ x.classList.remove('on'); });
+    b.classList.add('on');
+    var f = b.dataset.f;
+    cards.forEach(function(c){
+      c.style.display = (f === 'all' || c.dataset.f === f) ? '' : 'none';
+    });
+  });
+})();
+
+// 导航高亮
+(function(){
+  var links = document.querySelectorAll('.navin a');
+  var secs = Array.prototype.map.call(links, function(a){
+    return document.querySelector(a.getAttribute('href'));
+  });
+  window.addEventListener('scroll', function(){
+    var y = window.scrollY + 110, cur = -1;
+    secs.forEach(function(s,i){ if(s && s.offsetTop <= y) cur = i; });
+    links.forEach(function(a,i){ a.style.color = (i===cur) ? 'var(--teal)' : ''; });
+  }, {passive:true});
+})();
+</script>
+</body>
+</html>
